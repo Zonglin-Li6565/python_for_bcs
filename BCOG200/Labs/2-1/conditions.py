@@ -17,16 +17,14 @@ if X > Y:
 else:
     print(Y)
 
-'''
-    change the above code to compare:
-        Y & Z
-        X & Z
-        A & B
-        A & C
-        B & C
-        C & D
-        Z & C 
-'''
+# change the above code to compare:
+#     Y & Z
+#     X & Z
+#     A & B
+#     A & C
+#     B & C
+#     C & D
+#     Z & C
 
 # what will this AND code do?
 if (X > Z) and (int(A) == X):
@@ -34,11 +32,15 @@ if (X > Z) and (int(A) == X):
 else:
     print("Fail")
 
+# Fail
+
 # what about this OR code?
 if (X > Z) or (int(A) == X):
     print("Success")
 else:
     print("Fail")
+
+# Success
 
 # is this is the same as the AND code or the OR code?
 if X > Z:
@@ -49,6 +51,14 @@ if X > Z:
 else:
     print("Fail")
 
+# Fail
+
 # how would you change it to make it behave like the other one
-# in other words, if the code above is like the AND code, change it to behave like the OR code
-# but continuing to use two separate if statements instead of one combined one
+# in other words, if the code above is like the AND code,
+# change it to behave like the OR code but continuing to use two separate if
+# statements instead of one combined one
+
+if X <= Z or int(A) != X:
+    print('Fail')
+else:
+    print('Success')

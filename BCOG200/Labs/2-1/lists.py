@@ -32,12 +32,17 @@ object_list = ['dog', 'cat', 'shoe', 'sock']
 # num_items = len(object_list)
 # print("there are {} items in object list".format(num_items))
 
-'''
-    Questions:
-    
-    1. if i wanted to insert 'tree' into the 3rd position in the object list, so that it does NOT replace any items,
-        how do I do that?
-    2. what is the difference between list.pop() and list.remove()
-    3. print out the object list, sorted in reverse alphabetical order
+# Questions:
+#
+# 1. if i wanted to insert 'tree' into the 3rd position in the object list,
+#    so that it does NOT replace any items,
+#    how do I do that?
+object_list.insert(2, 'tree')
+print(object_list)
+# 2. what is the difference between list.pop() and list.remove()
+# >> list.pop() will remove the specified object at index, and returns the
+#    object
+# >> list.remove() will match the object in the list and remove it
+# 3. print out the object list, sorted in reverse alphabetical order
+print(list(reversed(sorted(object_list))))
 
-'''
