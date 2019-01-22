@@ -44,9 +44,11 @@ questions = [
     'Am quiet around strangers ']
 
 E_score = 0
-for i, question in enumerate(questions):
+for i, question in enumerate(map(lambda s: s[:-1] + ': ', questions)):
     answer = int(input(question))
-    assert 1 <= answer <= 5
+    while not 1 <= answer <= 5:
+        print('Type in a number between 1 and 5 inclusively')
+        answer = int(input(question))
     E_score += E_key[i] * answer
 
 print('Your E score is %d' % E_score)
