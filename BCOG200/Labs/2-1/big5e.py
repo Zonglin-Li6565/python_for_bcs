@@ -1,4 +1,5 @@
 from functools import reduce
+from operator import mul, add
 
 print('This is the Extroversion Section of the Big Five Personality Test')
 print('It will help you understand why you act the way that you do and how '
@@ -54,7 +55,6 @@ for i, question in enumerate(map(lambda s: s[:-1] + ': ', questions)):
         answer = int(input(question))
     answers.append(answer)
 
-E_score = reduce(lambda a, b: a + b,
-                 map(lambda x: x[0] * x[1], zip(E_key, answers)), 0)
+E_score = reduce(add, map(lambda x: mul(*x), zip(E_key, answers)), 0)
 
 print('Your E score is %d' % E_score)
