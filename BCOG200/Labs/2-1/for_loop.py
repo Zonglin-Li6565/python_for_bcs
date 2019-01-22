@@ -1,7 +1,8 @@
-x = 1
+x = 2
+y = 0
 
 for i in range(10):
-    y = x ** 2
+    y += x ** 2
     print(i, x, y)
 
 food_list = ['pizza', 'sandwich', 'apple', 'ice cream', 'salad']
