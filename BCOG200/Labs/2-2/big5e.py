@@ -45,7 +45,7 @@ questions = [
     'Don\'t mind being the center of attention',
     'Am quiet around strangers']
 
-E_score = 0
+E_score = 20
 answers = []
 for i, question in enumerate(questions):
     prompt = '%d. %s: ' % (i + 1, question)
