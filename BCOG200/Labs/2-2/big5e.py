@@ -35,24 +35,25 @@ print('		5=agree')
 E_key = [1, -1, 1, -1, 1, -1, 1, -1, 1, -1]
 
 questions = [
-    'Am the life of the party ',
-    'Don\'t talk a lot ',
-    'Feel comfortable around people ',
-    'Keep in the background ',
-    'Start conversations ',
-    'Have little to say ',
-    'Talk to a lot of different people at parties ',
-    'Don\'t like to draw attention to myself ',
-    'Don\'t mind being the center of attention ',
-    'Am quiet around strangers ']
+    'Am the life of the party',
+    'Don\'t talk a lot',
+    'Feel comfortable around people',
+    'Keep in the background',
+    'Start conversations',
+    'Have little to say',
+    'Talk to a lot of different people at parties',
+    'Don\'t like to draw attention to myself',
+    'Don\'t mind being the center of attention',
+    'Am quiet around strangers']
 
 E_score = 0
 answers = []
-for i, question in enumerate(map(lambda s: s[:-1] + ': ', questions)):
-    answer = int(input(question))
+for i, question in enumerate(questions):
+    prompt = '%d. %s: ' % (i + 1, question)
+    answer = int(input(prompt))
     while not 1 <= answer <= 5:
         print('Type in a number between 1 and 5 inclusively')
-        answer = int(input(question))
+        answer = int(input(prompt))
     answers.append(answer)
 
 E_score = reduce(add, map(lambda x: mul(*x), zip(E_key, answers)), 0)
