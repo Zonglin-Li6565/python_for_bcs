@@ -32,7 +32,7 @@ C = 4.0
 #
 # 3. What is the difference between the following two statements?
 #     B = 20
-#     >> Assignment expr
+#     >> Assignment expression
 #     B == 20
 #     >> Bool expr. true if B is 20, false if not.
 #

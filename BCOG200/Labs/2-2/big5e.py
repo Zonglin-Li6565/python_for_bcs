@@ -45,7 +45,6 @@ questions = [
     'Don\'t mind being the center of attention',
     'Am quiet around strangers']
 
-E_score = 20
 answers = []
 for i, question in enumerate(questions):
     prompt = '%d. %s: ' % (i + 1, question)
@@ -55,6 +54,6 @@ for i, question in enumerate(questions):
         answer = int(input(prompt))
     answers.append(answer)
 
-E_score = sum(map(lambda x: mul(*x), zip(E_key, answers)), 0)
+E_score = sum(map(lambda x: mul(*x), zip(E_key, answers)), 20)
 
 print('Your E score is %d' % E_score)
