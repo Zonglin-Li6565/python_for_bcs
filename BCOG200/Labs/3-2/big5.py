@@ -37,16 +37,32 @@ val_map = {
     'A': 14,
 }
 
+name_map = {
+    'O': 'openness',
+    'C': 'conscientiousness',
+    'E': 'extroversion',
+    'A': 'agreeableness',
+    'N': 'neuroticism',
+}
+
 for category in val_map.keys():
+    name_len = len(name_map[category])
     score = ask_and_score(
         os.path.join(QUESTION_DIR, '%s.txt' % category.lower()),
         val_map[category])
 
-print('openness     conscientiousness     extroversion     agreeableness     '
-      'neuroticism')
-print('   %02d               %02d                  %02d               %02d   '
-      '             %02d' % (val_map['O'],
-                             val_map['C'],
-                             val_map['E'],
-                             val_map['A'],
-                             val_map['N']))
+keys = ['O', 'C', 'E', 'A', 'N']
+
+for category in keys:
+    print(name_map[category], end=' ' * 5)
+
+print()
+
+for category in keys:
+    name_len = len(name_map[category])
+    num_str = '%d' % val_map[category]
+    offset = (name_len - len(num_str)) // 2
+    end = ' ' * (name_len - len(num_str) + 5 - offset)
+    print(' ' * offset + num_str, end=end)
+
+print()
