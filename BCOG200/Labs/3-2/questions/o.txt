@@ -1,10 +1,10 @@
-Have a rich vocabulary
-Have difficulty understanding abstract ideas
-Have a vivid imagination
-Am not interested in abstract ideas
-Have excellent ideas
-Do not have a good imagination
-Am quick to understand things
-Use difficult words
-Spend time reflecting on things
-Am full of ideas
+Have a rich vocabulary,1
+Have difficulty understanding abstract ideas,-1
+Have a vivid imagination,1
+Am not interested in abstract ideas,-1
+Have excellent ideas,1
+Do not have a good imagination,-1
+Am quick to understand things,1
+Use difficult words,1
+Spend time reflecting on things,1
+Am full of ideas,1
