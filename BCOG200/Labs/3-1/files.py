@@ -1,3 +1,5 @@
+from typing import TextIO
+
 '''
     what is the difference between a filename, a file handle, and file content?
 '''
@@ -13,7 +15,8 @@ print()
 '''
     what is the difference between f.read() and f.readline()
 '''
-# your answer here
+# f.read() reads the whole file. Disk seek to the end of the file
+# f.readline() reads the first line. Disk seek to the next line
 print()
 print("Example 2")
 filename = 'test_file1.txt'
@@ -48,6 +51,8 @@ print()
     To see what this means, try adding each line to a list, and then printing the list
 '''
 # how are 2 & 3 different from 1?
+# You read the file line by line. This is more convenient when the file is
+# nicely separated into lines
 
 print("Example 4")
 filename = 'test_file1.txt'
@@ -96,4 +101,20 @@ for example, line.split(' ') splits on spaces, line.split('.') splits on periods
 an 'ri' that is encountered. test each of these examples on 'test_file2.txt' below. Strip works the same way.
 Experiment with stripping different characters and type in a comment block below how it works.
 '''
+
+
+def print_line_with_split(file: TextIO, split: str) -> None:
+    file.seek(0)
+    print('Split with "%s"' % split)
+    for line in file:
+        data = line.strip()
+        data = data.split(' ')
+        print(data)
+    print()
+
+
 # your code here
+with open('test_file2.txt', 'r') as f:
+    print_line_with_split(f, ' ')
+    print_line_with_split(f, '.')
+    print_line_with_split(f, 'ri')
