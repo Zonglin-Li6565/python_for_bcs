@@ -13,56 +13,44 @@ import os
            20               20                  8                 5                11
 '''
 
-QUESTION_DIR = 'questions'
+QUESTION_DIR: str = 'questions'
 
+name_and_score = [
+    ['openness', 8],
+    ['conscientiousness', 14],
+    ['extroversion', 20],
+    ['agreeableness', 14],
+    ['neuroticism', 38]
+]
 
-def ask_and_score(file_path: str, init_val: int) -> int:
-    with open(file_path, 'r') as f:
-        lines = list(map(lambda s: s.strip('\n').split(','), f.readlines()))
-        total = init_val
-        for question, weight in lines:
+file_objects = [open(os.path.join(QUESTION_DIR, '%s.txt' % name[0]), 'r') for
+                name, _ in name_and_score]
+
+terminated = False
+
+while not terminated:
+    for i in range(len(name_and_score)):
+        line = file_objects[i].readline()
+        if len(line) == 0:
+            terminated = True
+            break
+        question, weight = line.strip('\n').split(',')
+        answer = int(input(question + ': '))
+        while not 1 <= answer <= 5:
+            print('Answer again. Be sure to answer between 1 and 5')
             answer = int(input(question + ': '))
-            while not 1 <= answer <= 5:
-                print('Answer again. Be sure to answer between 1 and 5')
-                answer = int(input(question + ': '))
-            total += answer * int(weight)
-    return 0
+        name_and_score[i][1] += answer * int(weight)
 
+name_str = ''
+score_str = ''
 
-val_map = {
-    'O': 8,
-    'C': 14,
-    'E': 20,
-    'N': 38,
-    'A': 14,
-}
-
-name_map = {
-    'O': 'openness',
-    'C': 'conscientiousness',
-    'E': 'extroversion',
-    'A': 'agreeableness',
-    'N': 'neuroticism',
-}
-
-for category in val_map.keys():
-    name_len = len(name_map[category])
-    score = ask_and_score(
-        os.path.join(QUESTION_DIR, '%s.txt' % category.lower()),
-        val_map[category])
-
-keys = ['O', 'C', 'E', 'A', 'N']
-
-for category in keys:
-    print(name_map[category], end=' ' * 5)
-
-print()
-
-for category in keys:
-    name_len = len(name_map[category])
-    num_str = '%d' % val_map[category]
+for name, score in name_and_score:
+    name_str += name + ' ' * 5
+    name_len = len(name)
+    num_str = '%d' % score
     offset = (name_len - len(num_str)) // 2
     end = ' ' * (name_len - len(num_str) + 5 - offset)
-    print(' ' * offset + num_str, end=end)
+    score_str += ' ' * offset + num_str + end
 
-print()
+print(name_str)
+print(score_str)
