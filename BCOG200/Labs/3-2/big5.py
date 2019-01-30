@@ -35,11 +35,11 @@ while not terminated:
             terminated = True
             break
         question, weight = line.strip('\n').split(',')
-        answer = int(input(question + ': '))
-        while not 1 <= answer <= 5:
+        answer = input(question + ': ')
+        while not answer.isdigit() or not 1 <= int(answer) <= 5:
             print('Answer again. Be sure to answer between 1 and 5')
-            answer = int(input(question + ': '))
-        name_and_score[i][1] += answer * int(weight)
+            answer = input(question + ': ')
+        name_and_score[i][1] += int(answer) * int(weight)
 
 name_str = ''
 score_str = ''
@@ -51,6 +51,8 @@ for name, score in name_and_score:
     offset = (name_len - len(num_str)) // 2
     end = ' ' * (name_len - len(num_str) + 5 - offset)
     score_str += ' ' * offset + num_str + end
+
+map(lambda f: f.close(), file_objects)
 
 print(name_str)
 print(score_str)
