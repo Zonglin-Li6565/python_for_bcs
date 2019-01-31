@@ -1,7 +1,9 @@
+import os
+
 '''
     1. what happens if you try to open a file that is already open? type your answer as a comment.
 '''
-# type your answer here
+# That's fine
 
 
 ''' 
@@ -10,42 +12,66 @@
 '''
 # type your answer here
 
+with open(os.path.realpath(__file__), 'r') as f:
+    print(f.read(10))
+
 ''' 
     3. Describe the difference behavior between the two following lines of code:
       if not (x > 3) or (y > 3):
       if not ((x > 3) or (y > 3)):  
 '''
-# type your answer here
+# In the first case, the not will be associated with (x > 3)
+# In the second case, the not will be associated with ((x > 3) or (y > 3))
+
 
 ''' 
     4.  Can you use 'break' and 'continue' with for loops, or just with while loops?
 '''
-# type your answer here
+# You can use break and continue with both
 
 
 ''' 
    5. if you want to remove the 3rd item from a list, what is the one line of python code to do that
 '''
-# type your answer here
-
+a = [1, 2, 3, 4, 5]
+a.pop(2)
 
 ''' 
     6. Write a program that asks for the temperature, and asks if it is in C or F, and converts it to the other 
         and prints it out.
 '''
-print("Output of question #6")
-# your code for #6 goes here
-print()
 
+
+def read_digit(prmpt):
+    val = input(prmpt)
+    while not val.isdigit():
+        print('Need to be a number')
+        val = input(prmpt)
+    return val
+
+
+print("Output of question #6")
+temp = read_digit('temperature')
+temp = float(temp)
+unit = input('unit')
+while not (unit in ['C', 'F']):
+    print('Only C or F')
+    unit = input('unit')
+if unit == 'C':
+    print(temp * 2)
+else:
+    print(temp * 3)
 
 ''' 
     7. Write a program that will compute the area of a circle. 
     Prompt the user to enter the radius and print a nice message back to the user with the answer.
 '''
 print("Output of question #7")
-# your code for #7 goes here
-print()
+radius = read_digit('radius?')
+radius = float(radius)
+print('Nice circle area: %.02f' % (3.14 * radius ** 2))
 
+print()
 
 ''' 
     8.  It is possible to name the days 0 through 6 where day 0 is Sunday and day 6 is Saturday.
@@ -54,10 +80,16 @@ print()
     and it will tell you the number of day of the week you will return on.
 '''
 print("Output of question #8")
-# your code for #8 goes here
+day = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+init_day = read_digit('Start day?')
+init_day = int(init_day)
+
+duration = read_digit('Duration?')
+duration = int(duration)
+
+print(day[(init_day + duration) % len(day)])
+
 print()
-
-
 
 '''
     9.  write code that reads in file 'test_file2.txt', creates a separate file for each geographic region 
@@ -76,9 +108,19 @@ print()
 '''
 print("Output of question #9")
 # your code for #9 goes here
+regions = {}
+with open('test_file2.txt', 'r') as f:
+    for line in f:
+        animal, region = tuple(map(lambda s: s.strip(), line.split(',')))
+        if not (region in regions):
+            regions[region] = []
+        regions[region].append(animal)
+
+for region in regions.keys():
+    with open('%s.txt' % region, 'w') as f:
+        for animal in regions[region]:
+            f.write(animal + '\n')
 print()
-
-
 
 '''
     10. write code that:
@@ -96,4 +138,13 @@ print()
 '''
 print("Output of question #10")
 # your code for #10 goes here
+with open('test_file1.txt', 'r') as f:
+    lines = f.readlines()
+    for line in lines:
+        for word in line.split(' '):
+            i = 0
+            while i < len(word):
+                print(word[i], end=' ')
+                i += 1
+            print()
 print()
