@@ -64,15 +64,13 @@ print(na_city_populations_dict.get(city_input))
 # and put's each animal into the dictionary as a key, with the location as it's value. Then write a look that iterates
 # through the whole dictionary, printing them out one at a time.
 
-regions = {}
+animals = {}
 with open('test_file2.txt', 'r') as f:
     for line in f:
         # animal, region = tuple(map(lambda s: s.strip(), line.split(',')))
         animal = line.strip().split(',')[0]
         region = line.strip().split(',')[1]
-        if not (region in regions):
-            regions[region] = []
-        regions[region].append(animal)
+        animals[animal] = region
 
-for key in regions:
-    print(regions[key])
+for key in animals:
+    print(key, animals[key])
