@@ -26,6 +26,10 @@ name_and_score = [
 file_objects = [open(os.path.join(QUESTION_DIR, '%s.txt' % name[0]), 'r') for
                 name, _ in name_and_score]
 
+file_objects = []
+
+
+
 terminated = False
 
 while not terminated:

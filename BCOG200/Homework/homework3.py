@@ -58,9 +58,9 @@ while not (unit in ['C', 'F']):
     print('Only C or F')
     unit = input('unit')
 if unit == 'C':
-    print(temp * 2)
+    print(temp * 9 / 5 + 32)
 else:
-    print(temp * 3)
+    print((temp - 32) * 5 / 9)
 
 ''' 
     7. Write a program that will compute the area of a circle. 
@@ -111,7 +111,9 @@ print("Output of question #9")
 regions = {}
 with open('test_file2.txt', 'r') as f:
     for line in f:
-        animal, region = tuple(map(lambda s: s.strip(), line.split(',')))
+        # animal, region = tuple(map(lambda s: s.strip(), line.split(',')))
+        animal = line.strip().split(',')[0]
+        region = line.strip().split(',')[1]
         if not (region in regions):
             regions[region] = []
         regions[region].append(animal)
