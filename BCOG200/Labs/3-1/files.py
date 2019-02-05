@@ -3,7 +3,7 @@ from typing import TextIO
 '''
     what is the difference between a filename, a file handle, and file content?
 '''
-print()
+print('\n')
 print("Example 1")
 filename = 'test_file1.txt'
 f = open(filename)
