@@ -70,5 +70,5 @@ with open('test_file2.txt', 'r') as f:
         animal, region = tuple(map(lambda s: s.strip(), line.split(',')))
         animals[animal] = region
 
-for key in animals:
+for key in sorted(animals.keys()):
     print(key, animals[key])

@@ -60,5 +60,5 @@ for i, artist in enumerate(artist_name):
     total_words = artist_dict['total_words']
     songs = artist_dict['songs']
     unique_words = len(artist_dict['unique_words'])
-    print_info(artist, songs, unique_words, total_words,
+    print_info(artist, songs, unique_words, int(total_words),
                '%.02f' % (unique_words / total_words))
