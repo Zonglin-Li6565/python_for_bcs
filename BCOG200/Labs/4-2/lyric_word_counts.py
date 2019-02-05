@@ -19,6 +19,10 @@ complete the program below, so that after you have two lists of files for two sp
 import os
 import sys
 
+if not os.path.isdir(sys.argv[1]):
+    print('Provide a directory')
+    exit(1)
+
 folder_list = os.listdir(sys.argv[1])
 
 lyric_dictionary_list = []
@@ -43,7 +47,7 @@ for folder in folder_list:
 
 
 def print_info(*args):
-    print(('{:>20}' * len(args)).format(*args))
+    print(('{:<20}' * len(args)).format(*args))
 
 
 print_info('artist', 'songs', 'unique words', 'total words',
