@@ -16,25 +16,43 @@ complete the program below, so that after you have two lists of files for two sp
 
 '''
 
-import os, sys
+import os
+import sys
 
 folder_list = os.listdir(sys.argv[1])
 
 lyric_dictionary_list = []
 
+artist_name = []
+
 for folder in folder_list:
-    file_list = os.listdir(sys.argv[1]+folder)
+    artist = {'total_words': 0, 'unique_words': set()}
+    lyric_dictionary_list.append(artist)
+    artist_name.append(folder)
+    song_dir = os.path.join(sys.argv[1], folder)
+    songs = os.listdir(song_dir)
+    songs = list(filter(lambda s: s.endswith('.txt'), songs))
+    artist['songs'] = len(songs)
+    for song in songs:
+        with open(os.path.join(song_dir, song), 'r') as song_f:
+            for line in song_f:
+                # TODO: Make be more intelligent when counting words
+                words = line.split(' ')
+                artist['total_words'] += len(words)
+                artist['unique_words'] = artist['unique_words'].union(words)
 
-song_list1 = os.listdir(folder1)
-song_list2 = os.listdir(folder2)
 
-verified_list1 = []
-verified_list2 = []
+def print_info(*args):
+    print(('{:>20}' * len(args)).format(*args))
 
-for file in song_list1:
-    if file[-4] == '.txt':
-        verified_list1.append(file)
 
-for file in song_list2:
-    if file[-4] == '.txt':
-        verified_list2.append(file)
+print_info('artist', 'songs', 'unique words', 'total words',
+           'unique word ratio')
+
+for i, artist in enumerate(artist_name):
+    artist_dict = lyric_dictionary_list[i]
+    total_words = artist_dict['total_words']
+    songs = artist_dict['songs']
+    unique_words = len(artist_dict['unique_words'])
+    print_info(artist, songs, unique_words, total_words,
+               '%.02f' % (unique_words / total_words))

@@ -12,8 +12,9 @@ na_city_populations_dict = {
 
 # this is really nice. if we wanted to keep track of cities and their populations (or any other pair of data
 #   a label, we would need two lists. or a list of lists.
-na_city_populations_list = [["Mexico City", 8918653], ["New York City", 8550405], ["Los Angeles", 3971883]]
-
+na_city_populations_list = [["Mexico City", 8918653],
+                            ["New York City", 8550405],
+                            ["Los Angeles", 3971883]]
 
 # to access a city's population from a list, we would need to know what spot it is in:
 for i in range(len(na_city_populations_list)):
@@ -31,8 +32,9 @@ print(population)
 # under the surface
 
 # what happens if you try to retrieve an item that is not in the dictionary?
+# Key error
 # what happens if you try to access a dictionary item using it's order, a number, like you do with a list
-
+# If your key is a number, then it will give the corresponding value. Otherwise, it will have key error
 # you add entries to a dictionary like this:
 na_city_populations_dict['Champaign'] = 87432
 
@@ -61,3 +63,16 @@ print(na_city_populations_dict.get(city_input))
 # write a program that takes last week's test_file2.txt as input (the file with the animals and where they are from
 # and put's each animal into the dictionary as a key, with the location as it's value. Then write a look that iterates
 # through the whole dictionary, printing them out one at a time.
+
+regions = {}
+with open('test_file2.txt', 'r') as f:
+    for line in f:
+        # animal, region = tuple(map(lambda s: s.strip(), line.split(',')))
+        animal = line.strip().split(',')[0]
+        region = line.strip().split(',')[1]
+        if not (region in regions):
+            regions[region] = []
+        regions[region].append(animal)
+
+for key in regions:
+    print(regions[key])
