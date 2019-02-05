@@ -67,9 +67,7 @@ print(na_city_populations_dict.get(city_input))
 animals = {}
 with open('test_file2.txt', 'r') as f:
     for line in f:
-        # animal, region = tuple(map(lambda s: s.strip(), line.split(',')))
-        animal = line.strip().split(',')[0]
-        region = line.strip().split(',')[1]
+        animal, region = tuple(map(lambda s: s.strip(), line.split(',')))
         animals[animal] = region
 
 for key in animals:
