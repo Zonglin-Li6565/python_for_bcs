@@ -19,7 +19,7 @@ complete the program below, so that after you have two lists of files for two sp
 import os
 import sys
 
-if not os.path.isdir(sys.argv[1]):
+if len(sys.argv) == 1 or (not os.path.isdir(sys.argv[1])):
     print('Provide a directory')
     exit(1)
 
@@ -30,10 +30,12 @@ lyric_dictionary_list = []
 artist_name = []
 
 for folder in folder_list:
-    artist = {'total_words': 0, 'unique_words': set()}
+    song_dir = os.path.join(sys.argv[1], folder)
+    if not os.path.isdir(song_dir):
+        continue
+    artist = {'total_words': 1e-100, 'unique_words': set()}
     lyric_dictionary_list.append(artist)
     artist_name.append(folder)
-    song_dir = os.path.join(sys.argv[1], folder)
     songs = os.listdir(song_dir)
     songs = list(filter(lambda s: s.endswith('.txt'), songs))
     artist['songs'] = len(songs)
