@@ -29,7 +29,7 @@ lyric_dictionary_list = []
 
 artist_name = []
 
-for folder in folder_list:
+for folder in filter(lambda s: not s.startswith('.'), folder_list):
     song_dir = os.path.join(sys.argv[1], folder)
     if not os.path.isdir(song_dir):
         continue
