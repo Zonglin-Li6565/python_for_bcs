@@ -16,7 +16,6 @@ complete the program below, so that after you have two lists of files for two sp
             kanye       10          108                 751             7.54
 
 '''
-<<<<<<< HEAD
 
 import os
 import sys
@@ -24,13 +23,9 @@ import sys
 if len(sys.argv) == 1 or (not os.path.isdir(sys.argv[1])):
     print('Provide a directory')
     exit(1)
-=======
-import os, sys
->>>>>>> upstream/master
 
 lyric_dictionary_list = []
 
-<<<<<<< HEAD
 artist_name = []
 
 for folder in filter(lambda s: not s.startswith('.'), folder_list):
@@ -66,18 +61,3 @@ for i, artist in enumerate(artist_name):
     unique_words = len(artist_dict['unique_words'])
     print_info(artist, songs, unique_words, int(total_words),
                '%.02f' % (unique_words / total_words))
-=======
-input_directory = sys.argv[1]
-artist_list = os.listdir(input_directory)
-
-for artist in artist_list:
-    #print(artist)
-    song_list = os.listdir(input_directory+artist)
-    #print(song_list)
-    for song in song_list:
-        file_name = input_directory + artist + "/" + song
-        f = open(file_name)
-        words = f.read()
-        #print(words)
-        f.close()
->>>>>>> upstream/master
