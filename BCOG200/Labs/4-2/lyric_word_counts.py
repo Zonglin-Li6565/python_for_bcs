@@ -24,6 +24,8 @@ if len(sys.argv) == 1 or (not os.path.isdir(sys.argv[1])):
     print('Provide a directory')
     exit(1)
 
+folder_list = os.listdir(sys.argv[1])
+
 lyric_dictionary_list = []
 
 artist_name = []
