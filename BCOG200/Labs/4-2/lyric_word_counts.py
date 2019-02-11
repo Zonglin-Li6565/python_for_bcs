@@ -24,8 +24,6 @@ if len(sys.argv) == 1 or (not os.path.isdir(sys.argv[1])):
     print('Provide a directory')
     exit(1)
 
-
-#
 # folder_list = os.listdir(sys.argv[1])
 
 # lyric_dictionary_list = []
@@ -44,11 +42,12 @@ if len(sys.argv) == 1 or (not os.path.isdir(sys.argv[1])):
 #     artist['songs'] = len(songs)
 #     for song in songs:
 #         with open(os.path.join(song_dir, song), 'r') as song_f:
-#             content = song_f.read().lower().strip()
-#             # TODO: Make be more intelligent when counting words
-#             words = content.split(' ')
-#             artist['total_words'] += len(words)
-#             artist['unique_words'] = artist['unique_words'].union(words)
+#             for line in song_f:
+#                 content = line.lower().strip()
+#                 # TODO: Make be more intelligent when counting words
+#                 words = content.split(' ')
+#                 artist['total_words'] += len(words)
+#                 artist['unique_words'] = artist['unique_words'].union(words)
 
 
 def print_info(*args):
@@ -81,12 +80,13 @@ for name in filter(lambda s: not s.startswith('.'), folder_list):
     lyric_dictionary_list.append((artist_dict, len(songs), name))
     for song in songs:
         with open(os.path.join(song_dir, song), 'r') as song_f:
-            content = song_f.read().lower().strip()
-            words = content.split(' ')
-            for word in words:
-                if word not in artist_dict:
-                    artist_dict[word] = 0
-                artist_dict[word] += 1
+            for line in song_f:
+                content = line.lower().strip()
+                words = content.split(' ')
+                for word in words:
+                    if word not in artist_dict:
+                        artist_dict[word] = 0
+                    artist_dict[word] += 1
 
 for artist_dict, num_song, name in lyric_dictionary_list:
     unique_words = len(artist_dict)
