@@ -24,29 +24,31 @@ if len(sys.argv) == 1 or (not os.path.isdir(sys.argv[1])):
     print('Provide a directory')
     exit(1)
 
-folder_list = os.listdir(sys.argv[1])
 
-lyric_dictionary_list = []
+#
+# folder_list = os.listdir(sys.argv[1])
 
-artist_name = []
-
-for folder in filter(lambda s: not s.startswith('.'), folder_list):
-    song_dir = os.path.join(sys.argv[1], folder)
-    if not os.path.isdir(song_dir):
-        continue
-    artist = {'total_words': 1e-100, 'unique_words': set()}
-    lyric_dictionary_list.append(artist)
-    artist_name.append(folder)
-    songs = os.listdir(song_dir)
-    songs = list(filter(lambda s: s.endswith('.txt'), songs))
-    artist['songs'] = len(songs)
-    for song in songs:
-        with open(os.path.join(song_dir, song), 'r') as song_f:
-            for line in song_f:
-                # TODO: Make be more intelligent when counting words
-                words = line.split(' ')
-                artist['total_words'] += len(words)
-                artist['unique_words'] = artist['unique_words'].union(words)
+# lyric_dictionary_list = []
+#
+# artist_name = []
+#
+# for name in filter(lambda s: not s.startswith('.'), folder_list):
+#     song_dir = os.path.join(sys.argv[1], name)
+#     if not os.path.isdir(song_dir):
+#         continue
+#     artist = {'total_words': 1e-100, 'unique_words': set()}
+#     lyric_dictionary_list.append(artist)
+#     artist_name.append(name)
+#     songs = os.listdir(song_dir)
+#     songs = list(filter(lambda s: s.endswith('.txt'), songs))
+#     artist['songs'] = len(songs)
+#     for song in songs:
+#         with open(os.path.join(song_dir, song), 'r') as song_f:
+#             content = song_f.read().lower().strip()
+#             # TODO: Make be more intelligent when counting words
+#             words = content.split(' ')
+#             artist['total_words'] += len(words)
+#             artist['unique_words'] = artist['unique_words'].union(words)
 
 
 def print_info(*args):
@@ -56,10 +58,40 @@ def print_info(*args):
 print_info('artist', 'songs', 'unique words', 'total words',
            'unique word ratio')
 
-for i, artist in enumerate(artist_name):
-    artist_dict = lyric_dictionary_list[i]
-    total_words = artist_dict['total_words']
-    songs = artist_dict['songs']
-    unique_words = len(artist_dict['unique_words'])
-    print_info(artist, songs, unique_words, int(total_words),
+# for i, artist in enumerate(artist_name):
+#     artist_dict = lyric_dictionary_list[i]
+#     total_words = artist_dict['total_words']
+#     songs = artist_dict['songs']
+#     unique_words = len(artist_dict['unique_words'])
+#     print_info(artist, songs, unique_words, int(total_words),
+#                '%.02f' % (unique_words / total_words))
+
+folder_list = os.listdir(sys.argv[1])
+lyric_dictionary_list = []
+
+# Filter out all the directories starting with '.'
+for name in filter(lambda s: not s.startswith('.'), folder_list):
+    song_dir = os.path.join(sys.argv[1], name)
+    if not os.path.isdir(song_dir):
+        continue
+    artist_dict = {}
+    songs = os.listdir(song_dir)
+    # Ignore anything that doesn't end with .txt
+    songs = list(filter(lambda s: s.endswith('.txt'), songs))
+    lyric_dictionary_list.append((artist_dict, len(songs), name))
+    for song in songs:
+        with open(os.path.join(song_dir, song), 'r') as song_f:
+            content = song_f.read().lower().strip()
+            words = content.split(' ')
+            for word in words:
+                if word not in artist_dict:
+                    artist_dict[word] = 0
+                artist_dict[word] += 1
+
+for artist_dict, num_song, name in lyric_dictionary_list:
+    unique_words = len(artist_dict)
+    total_words = 0
+    for word in artist_dict.keys():
+        total_words += artist_dict[word]
+    print_info(name, num_song, unique_words, total_words,
                '%.02f' % (unique_words / total_words))
