@@ -159,9 +159,9 @@ def count_all_songs(lyric_lists):
 
 def get_num_types_lists(freq_dict_lists):
     """
-
-    :param freq_dict_lists:
-    :return:
+    Get a list of list for number of unique words in a song
+    :param freq_dict_lists: The word frequency counter for each song
+    :return: The number of unique words in each song.
     """
     num_types_lists = []
     for i in range(len(freq_dict_lists)):
@@ -176,6 +176,11 @@ def get_num_types_lists(freq_dict_lists):
 
 
 def get_num_tokens_lists(lyric_lists):
+    """
+    Get a list of list for the number of words in each song
+    :param lyric_lists: The list of song lyrics
+    :return: The list of list for the number of words in each song
+    """
     num_tokens_lists = []
     for i in range(len(lyric_lists)):
         current_artist = lyric_lists[i]
@@ -189,6 +194,14 @@ def get_num_tokens_lists(lyric_lists):
 
 
 def get_type_token_ratio_lists(num_tokens_lists, num_types_lists):
+    """
+    A list of list for the tt ratio of each song.
+    :param num_tokens_lists: The list of list containing word count for each
+                             song
+    :param num_types_lists: The list of list containing unique word count for
+                            each song
+    :return: The tt ratio for each song
+    """
     tt_ratio_lists = []
     for i in range(len(num_tokens_lists)):
         current_token_counts = num_tokens_lists[i]
@@ -202,6 +215,11 @@ def get_type_token_ratio_lists(num_tokens_lists, num_types_lists):
 
 
 def get_mean_tt_ratio(tt_ratio_lists):
+    """
+    Get the mean tt ratio for the artist
+    :param tt_ratio_lists: The list of list of tt ratio for each song.
+    :return: List of average tt ratio for each artist.
+    """
     mean_tt_ratios = []
     num_artists = len(tt_ratio_lists)
     for i in range(num_artists):
@@ -215,6 +233,12 @@ def get_mean_tt_ratio(tt_ratio_lists):
 
 
 def output_data(artist_list, mean_tt_ratios):
+    """
+    Print out the data in a nice format.
+    :param artist_list: The list of artist names
+    :param mean_tt_ratios: The mean tt ratio of the corresponding artist
+    :return: None
+    """
     num_artists = len(artist_list)
     print("Artist       TT Ratio")
     for i in range(num_artists):
@@ -224,6 +248,10 @@ def output_data(artist_list, mean_tt_ratios):
 
 
 def main():
+    """
+    Main function.
+    :return: None
+    """
     input_directory = sys.argv[1]
     artist_list = get_artist_list(input_directory)
     song_lists = get_song_lists(input_directory, artist_list)

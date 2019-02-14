@@ -1,7 +1,9 @@
-
 def q1():
     # What is the difference between an argument and a parameter? Given an example.
-    your_answer = ""
+    your_answer = """
+    A parameter is the variable name in the function signature. An argument is 
+    the data passed into the function.
+    """
     print("Question 1")
     print(your_answer)
 
@@ -16,7 +18,12 @@ def q2():
 
     print("Question 2")
     nonfruitful_function()
-    your_answer = ""
+    your_answer = """
+    The return value is None. To see it you can call the function and pass the 
+    returned value to a print function:
+    print(nonfruitful_function())
+    This function (q2) is an example of nonfruitful function.
+    """
     print(your_answer)
 
 
@@ -32,7 +39,10 @@ def q3():
     # function1()
     # function2()
 
-    your_answer = ""
+    your_answer = """
+    function2 is a closure inside function1, which is not accessible in global
+    scope.
+    """
     print("Question 3")
     print(your_answer)
 
@@ -41,17 +51,30 @@ def q4():
     # below this function definition, there is a global variable defined. What about python's syntax makes it a
     # global variable? How would you make it a local variable to this function?
 
-    your_answer = ""
+    your_answer = """
+    The variable doesn't have any indentation before it. So it's in the global
+    scope. If we want to make it a local variable of this function, we should
+    add four spaces before 'x = 25'
+    """
     print("Question 4")
     print(your_answer)
+
+
 x = 25
 
 
 def q5():
     # What is an optional parameter in a python function, and how do you define one in a function definition?
-    your_answer = ""
+    your_answer = """
+    The optional parameter will have a keyword and a default value. The function
+    returned from this function is an example.
+    """
     print("Question 5")
     print(your_answer)
+
+    def with_optional_args(positional1, positional2, optional1=1, optional2=2):
+        print(positional1, positional2, optional1, optional2)
+    return with_optional_args
 
 
 def q6():
@@ -92,6 +115,7 @@ def q8():
     variance = 0
     print(variance)
 
+
 def q9():
     # What is the problem with the code below that defines and calls a function? Type your answer where it says
     # 'your_answer. Then, uncomment and fix the code so that it does not generate an error, prints out "yes" if the
@@ -110,13 +134,14 @@ def q9():
     print("Question 9")
     print(your_answer)
 
+
 def q10():
     # write a function that takes a list as an input, and calculates mean, median, and mode of those numbers,
     # and returns them.
 
     # your function definition here
 
-    data = [6,7,8,9,9,9,9,10,11,12]
+    data = [6, 7, 8, 9, 9, 9, 9, 10, 11, 12]
     mean = 0
     median = 0
     mode = 0
@@ -137,5 +162,6 @@ def main():
     q8()
     q9()
     q10()
+
 
 main()
