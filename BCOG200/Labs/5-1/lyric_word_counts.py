@@ -33,11 +33,16 @@
     call a "remove_punctuation" function. But where is the "best" place to call it?
 '''
 
-import sys
 import os
+import sys
 
 
 def remove_hidden_files(directory_list):
+    """
+    Remove files whose names start with '.'.
+    :param directory_list: All the files in a directory.
+    :return: The list of valid (non hidden) files.
+    """
     file_list = []
     for item in directory_list:
         if item[0] != '.':
@@ -46,12 +51,24 @@ def remove_hidden_files(directory_list):
 
 
 def get_artist_list(input_directory):
+    """
+    Get all the artist names in the directory.
+    :param input_directory: The path to the input directory.
+    :return: The list of artist names.
+    """
     directory_list = os.listdir(input_directory)
     artist_list = remove_hidden_files(directory_list)
     return artist_list
 
 
 def get_song_lists(input_directory, artist_list):
+    """
+    Get a list of list of songs. Each sub list contains all the songs of an
+    author.
+    :param input_directory: The directory that contains
+    :param artist_list: The list of artist names.
+    :return: The list of list of song file names.
+    """
     song_lists = []
 
     for artist in artist_list:
@@ -63,6 +80,14 @@ def get_song_lists(input_directory, artist_list):
 
 
 def get_lyrics(input_directory, artist_list, song_lists):
+    """
+    Get all the lyrics for all the specified artist.
+    :param input_directory: The directory contains the artists.
+    :param artist_list: The list of artist names we care about.
+    :param song_lists: The list of songs we care about
+    :return: The list of list containing lyrics for songs of the specified
+    artist.
+    """
     lyric_lists = []
     num_artists = len(artist_list)
     for i in range(num_artists):
@@ -81,6 +106,12 @@ def get_lyrics(input_directory, artist_list, song_lists):
 
 
 def read_in_file(file_name):
+    """
+    Read in a song file and concatenate all the lines into one string. And then
+    split up into words.
+    :param file_name: The song file path.
+    :return: A list of words in the file.
+    """
     lyric_string = ""
     f = open(file_name)
     for line in f:
@@ -92,6 +123,11 @@ def read_in_file(file_name):
 
 
 def count_single_song(token_list):
+    """
+    Count the frequency of each word in a file.
+    :param token_list: The list of words (token)
+    :return: A dictionary holding the frequency of each word.
+    """
     freq_dict = {}
     for token in token_list:
         if token in freq_dict:
@@ -102,6 +138,11 @@ def count_single_song(token_list):
 
 
 def count_all_songs(lyric_lists):
+    """
+    Count the word frequency of all the songs.
+    :param lyric_lists: The list of list of tokens.
+    :return: List of dictionaries to count for word freq.
+    """
     num_artists = len(lyric_lists)
     freq_dict_lists = []
     for i in range(num_artists):
@@ -117,6 +158,11 @@ def count_all_songs(lyric_lists):
 
 
 def get_num_types_lists(freq_dict_lists):
+    """
+
+    :param freq_dict_lists:
+    :return:
+    """
     num_types_lists = []
     for i in range(len(freq_dict_lists)):
         current_artist = freq_dict_lists[i]
@@ -185,8 +231,10 @@ def main():
     freq_dict_lists = count_all_songs(lyric_lists)
     num_types_lists = get_num_types_lists(freq_dict_lists)
     num_tokens_lists = get_num_tokens_lists(lyric_lists)
-    tt_ratio_lists = get_type_token_ratio_lists(num_tokens_lists, num_types_lists)
+    tt_ratio_lists = get_type_token_ratio_lists(num_tokens_lists,
+                                                num_types_lists)
     mean_tt_ratios = get_mean_tt_ratio(tt_ratio_lists)
     output_data(artist_list, mean_tt_ratios)
+
 
 main()

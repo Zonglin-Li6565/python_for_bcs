@@ -31,14 +31,21 @@
     Note that if the () is alone its a tuple; if it follows a word its a function
 '''
 
+
 #    You've already used a lot of functions in python. List five examples of functions we've already used,
 #     What are their parameters, what do they do, and what variables do they return?
 #   YOUR ANSWER HERE
+# print(): positional arguments are the values to be printed out. There are several keyword arguments. The return value is None
+# len(): the argument is an object. Will return the value returned from the object's __len__() function.
+# range(): can take three arguments: start, stop and step size. Returns a range object.
+# f(): no argument. Returns None
+# os.listdir(): the argument is the path of the dir. Returns a list containing the names of the files in the directory.
 
 # in addition to using built-in functions, we can define our own functions, like this
 def square(x):
     y = x * x
     return y
+
 
 # the first line of a function has the keyword 'def' (short for define), the function's name, and then it's parameters.
 # a function definition must end with a colon.
@@ -51,6 +58,7 @@ def square(x):
 x = 5
 y = square(x)
 print(y)
+
 
 # ideally, you want to create and use functions whenever you have code you will want to use over and over.
 #   in some of our labs so far, you might imagine a function that gets data from a file, or data that asks a survey
@@ -66,6 +74,7 @@ def some_complicated_function(input1, input2, input3, input4):
 
     return result1, result2, result3, result4
 
+
 a = 40
 b = 20
 c = 10
@@ -75,6 +84,8 @@ d = 5
 # write a line of code that calls the function above, and then print out the resulting four variables
 
 # YOUR CODE HERE
+print(some_complicated_function(a, b, c, d))
+
 
 # you will sometimes see it written that in Python, you can only return ONE value from a function. This is technically
 # true. When you do what I did above where the function returns four values, python is actually silently converting
@@ -87,6 +98,7 @@ def some_complicated_function(input1, input2, input3, input4):
 
     result_tuple = (result1, result2, result3, result4)
     return result_tuple
+
 
 # you just need to remember to include all the inputs parameters and returned values
 result_tuple = some_complicated_function(20, 10, 5, 2)
@@ -110,4 +122,17 @@ variables you didnt want changed. To fix this problem, we would ideally rewrite 
 functions. Do so below.
 '''
 
+
 ### YOUR CODE HERE
+
+def add(input1, input2, input3, input4):
+    return input1 + input2 + input3 + input4
+
+def sub(input1, input2, input3, input4):
+    return input1 - input2 - input3 - input4
+
+def prod(input1, input2, input3, input4):
+    return input1 * input2 * input3 * input4
+
+def div(input1, input2, input3, input4):
+    return input1 / input2 / input3 / input4

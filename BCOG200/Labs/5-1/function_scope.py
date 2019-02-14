@@ -8,34 +8,39 @@
 
 '''
 
+
 # consider this code. temperature is defined twice, once in the main code, and once in the fahrenheit function
 # in comments below, list how many times is a variable called temperature invoked, and what is it's value in each case?
 def fahrenheit(temperature):
     """ returns the temperature in degrees Fahrenheit """
-    temperature = (temperature * 9 / 5) + 32
-    return temperature
+    temperature = (temperature * 9 / 5) + 32  # Invoked (evaluated) once here.
+    return temperature  # Invoked (evaluated) once here.
+
 
 c_temp_list = [22.6, 25.8, 27.3, 29.8]
 for temperature in c_temp_list:
-    f_temp = fahrenheit(temperature)
-    print(temperature, f_temp)
+    f_temp = fahrenheit(temperature)  # Invoked (evaluated) once here.
+    print(temperature, f_temp)  # Invoked (evaluated) once here.
+
 
 # YOUR ANSWER HERE
 
 
 # another consequence of variable scope is that functions don't know anything about variables that arent inside them
 # for example, the code below will generate an error. Uncomment and run it so you can see the error it generates:
-# #
-# def positive_exponentiation(base):
-#     result = 1
-#     for i in range(power):
-#         result *= base
-#     return result
 #
-# x = 4
-# y = 3
-# z = positive_exponentiation(x)
-# print(z)
+def positive_exponentiation(base, power):
+    result = 1
+    for i in range(power):
+        result *= base
+    return result
+
+
+x = 4
+y = 3
+z = positive_exponentiation(x, y)
+print(z)
+
 
 # uncomment and fix the code so that "positive_exponentiation" knows what 'power' is, and calculates the correct result.
 
@@ -44,18 +49,25 @@ def f():
     s = "I love pizza!"
     print(s)
 
+
 s = "I love tacos!"
 f()
 print(s)
+
+
 # describe what happens, and explain why below
-# YOUR ANSWER HERE
+# First "I love pizza" is printed, then "I love tacos" is printed. Since the
+# local variable s of f() shadows the global variable s.
 
 # one complicating wrinkle is that a function can know about 'global' variables, even if they aren't explicitly
 # defined inside a function. For example, the f function below knows what is stored in the s variable, even though it
 # wasnt explicitly passed inside.
 def f():
     print(s)
+
+
 s = "I love Paris in the summer!"
+
 
 # Basically, you can imagine that variables defined outside are visible inside other
 # functions, so if there is a variable with that name, it will use it. This can lead to big problems sometimes. Imagine
@@ -66,16 +78,18 @@ s = "I love Paris in the summer!"
 # the program ran without a syntax error because there was a defined i (being used in a different part of the program).
 # the resulting program generates an infinite loop. So be careful running it. But fix it so it runs as intended.
 
-# def f():
-#     while i < 10:
-#         print(i)
-# i = 3
-# x = i + 2
-# f()
+def f():
+    i = 0
+    while i < 10:
+        print(i)
+        i += 1
+
+
+i = 3
+x = i + 2
+f()
 
 # This is another reason to use clear, distinct variable names, to make sure this kind of thing doesnt happen by
 # accident. It is also a reason why people often caution against using global variables in general when it can be
 # avoided, and to name variables inside a function (the parameters) and variables for calling a function (arguments)
 # different things, to avoid such mistakes.
-
-
