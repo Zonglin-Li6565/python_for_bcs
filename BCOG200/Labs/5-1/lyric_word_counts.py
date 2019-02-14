@@ -34,6 +34,7 @@
 '''
 
 import os
+import string
 import sys
 
 
@@ -79,6 +80,20 @@ def get_song_lists(input_directory, artist_list):
     return song_lists
 
 
+def lower_case_and_clean_word(words_in_song):
+    """
+    Lower case all the words and remove the punctuations.
+    :param words_in_song: The list of words in a song
+    :return: A list of words lower cased
+    """
+    exclude = set(string.punctuation)
+
+    def clean_str(word):
+        return ''.join(filter(lambda c: c not in exclude, word))
+
+    return list(map(lambda s: clean_str(s.lower()), words_in_song))
+
+
 def get_lyrics(input_directory, artist_list, song_lists):
     """
     Get all the lyrics for all the specified artist.
@@ -97,8 +112,9 @@ def get_lyrics(input_directory, artist_list, song_lists):
         new_song_lyric_list = []
 
         for song in song_list:
-            file_name = input_directory + artist + "/" + song
-            lyric_list = read_in_file(file_name)
+            path = os.path.join(input_directory, artist)
+            file_name = os.path.join(path, song)
+            lyric_list = lower_case_and_clean_word(read_in_file(file_name))
             new_song_lyric_list.append(lyric_list)
         lyric_lists.append(new_song_lyric_list)
 
@@ -247,13 +263,59 @@ def output_data(artist_list, mean_tt_ratios):
         print("{}       {:.2f}".format(artist, tt_ratio))
 
 
+def get_input_dir():
+    """
+    Get the input dir from the command line.
+    :return: The input dir path.
+    """
+    if len(sys.argv) > 1:
+        input_dir = sys.argv[1]
+        if os.path.isdir(input_dir):
+            if len(os.listdir(input_dir)) > 0:
+                return input_dir
+    print('Invalid input dir')
+    exit(1)
+
+
+def validate_artist_dirs(input_dir, artist_list):
+    """
+    Check whether the artist dir has songs in it. Quit if not.
+    :param input_dir: The input dir that contains the artist dirs
+    :param artist_list: The list of artist dirs
+    :return: None
+    """
+    for artist in artist_list:
+        path = os.path.join(input_dir, artist)
+        if len(remove_hidden_files(os.listdir(path))) == 0:
+            print('Artist %s doesn\'t have any song in it' % artist)
+            exit(1)
+
+
+def validate_song_files(input_dir, artist_list):
+    """
+    Check to make sure each song file has at least one word
+    :param input_dir: The dir contains all the artist dirs
+    :param artist_list: The list of artists
+    :return: None
+    """
+    for artist in artist_list:
+        path = os.path.join(input_dir, artist)
+        songs = remove_hidden_files(os.listdir(path))
+        for song in songs:
+            with open(os.path.join(path, song), 'r') as f:
+                if len(f.read()) == 0:
+                    print('Song %s from %s is empty' % (song, artist))
+                    exit(1)
+
+
 def main():
     """
     Main function.
     :return: None
     """
-    input_directory = sys.argv[1]
+    input_directory = get_input_dir()
     artist_list = get_artist_list(input_directory)
+    validate_artist_dirs(input_directory, artist_list)
     song_lists = get_song_lists(input_directory, artist_list)
     lyric_lists = get_lyrics(input_directory, artist_list, song_lists)
     freq_dict_lists = count_all_songs(lyric_lists)
