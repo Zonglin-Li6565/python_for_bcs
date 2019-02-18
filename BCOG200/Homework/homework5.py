@@ -89,7 +89,7 @@ def q6():
                 max = value
             if value < min:
                 min = value
-            return min, max
+        return min, max
 
     print("Question 6")
     your_answer = """
