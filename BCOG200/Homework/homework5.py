@@ -83,8 +83,8 @@ def q6():
     # there is only one variable to which the data is being assigned? Why is this legal? How is handling this situation?
     def get_min_max(some_list):
         min = some_list[0]
-        max = some_list[1]
-        for value in some_list[1:]:
+        max = some_list[0]
+        for value in some_list:
             if value > max:
                 max = value
             if value < min:
