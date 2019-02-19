@@ -25,6 +25,9 @@ for temperature in c_temp_list:
 
 # YOUR ANSWER HERE
 
+# The total number of times a variable called temperature is evaluated is:
+# 4 * 4 = 16
+
 
 # another consequence of variable scope is that functions don't know anything about variables that arent inside them
 # for example, the code below will generate an error. Uncomment and run it so you can see the error it generates:
@@ -56,6 +59,7 @@ print(s)
 
 
 # describe what happens, and explain why below
+
 # First "I love pizza" is printed, then "I love tacos" is printed. Since the
 # local variable s of f() shadows the global variable s.
 

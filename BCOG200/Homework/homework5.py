@@ -2,7 +2,16 @@ def q1():
     # What is the difference between an argument and a parameter? Given an example.
     your_answer = """
     A parameter is the variable name in the function signature. An argument is 
-    the data passed into the function.
+    the data passed into the function. For example for a function:
+    
+    def function(a, b):
+        print(a, b)
+        
+    and invoked as:
+    
+    function(1, 2)
+    
+    a, b here are parameters, and 1, 2 are arguments.
     """
     print("Question 1")
     print(your_answer)
@@ -22,7 +31,7 @@ def q2():
     The return value is None. To see it you can call the function and pass the 
     returned value to a print function:
     print(nonfruitful_function())
-    This function (q2) is an example of nonfruitful function.
+    This function q2() is an example of nonfruitful function.
     """
     print(your_answer)
 
@@ -67,7 +76,7 @@ def q5():
     # What is an optional parameter in a python function, and how do you define one in a function definition?
     your_answer = """
     The optional parameter will have a keyword and a default value. The function
-    returned from this function is an example.
+    returned from q5() is an example.
     """
     print("Question 5")
     print(your_answer)
