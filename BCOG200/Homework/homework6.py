@@ -152,8 +152,7 @@ def q9():
         start_numpy = time.time()
         list_of_n_numpy(i)
         end_numpy = time.time()
-        print_out = '''
-        Length: %d
+        print_out = '''Length: %d
         Python time: %f
         Numpy time: %f
         ''' % (i, end_python - start_python, end_numpy - start_numpy)
