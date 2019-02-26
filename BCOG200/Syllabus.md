@@ -19,7 +19,7 @@ University of Illinois at Urbana-Champaign<br>
 Email: jwillits@illinois.edu<br>
 Website: http://www.psychology.illinois.edu/people/jwillits<br>
 Office Location: Psychology 811<br>
-Office Hours: Thursday 230pm-330pm
+Office Hours: Monday 1000am-1200pm, Thursday 230pm-330pm
 
 **Teaching Assistant**<br>
 Andrew Flores<br>
@@ -52,7 +52,7 @@ Programming for Cognitive Science has three primary learning objectives:
 \- F    Below 60<br>
 
 **Grade Components**<br>
-\- Participation: 30%<br>
+\- Participation: 10%<br>
 \- Group Lab Work: 30%<br>
 \- Homework: 30%<br>
 \- Final Project: 30%<br>
@@ -83,12 +83,13 @@ research question, multiple hypotheses, and how your program, analysis, or simul
 At the end of the quarter, you will turn in your code and a brief project report, which describes your results.
 Your group will then present your project to the class during the final exam period.
 For the project, you may work alone or in a group. The bigger the group, the higher the expectations for your project.
-As a part of the project proposal, each group must clearly assign roles, making sure each person is contributing to different
-aspects of the project. For example, one person cannot just be in charge of the presentation, without doing any coding!
+As a part of the project proposal, each group must clearly assign roles, making sure each person is contributing to 
+different aspects of the project. For example, one person cannot just be in charge of the presentation, without doing 
+any coding!
 
 ## 4. Attendance Policy
 As noted above, attendance is built into the class in terms of your participation grade,
- and due to the quizzes each week in class. These elements combine to make up 30% of your grade, 
+ and the lab assignments. These elements combine to make up 40% of your grade, 
  and so consistent absence from class will be very detrimental. This is a class with considerable 
  in class work and participation, and so if attendance will be difficult for you, it is recommended 
  you wait and take the course at a time you will be able to attend.
@@ -109,15 +110,32 @@ can be found here: http://www.las.illinois.edu/students/integrity/.
 ## 6. Accomodation Policy
 To obtain disability-related academic adjustments and/or auxiliary aids, 
 students with disabilities must contact the course instructor and the Disability Resources and 
-Educational Services (DRES) as soon as possible. 
-To contact DRES, you may visit 1207 S. Oak St., Champaign, call 333-4603, 
-e-mail disability@illinois.edu or go to the DRES website (https://www.disability.illinois.edu). 
+Educational Services (DRES) as soon as possible. To contact DRES, you may visit 1207 S. Oak St., Champaign, 
+call 333-4603, e-mail disability@illinois.edu or go to the DRES website (https://www.disability.illinois.edu). 
 If you are concerned you have a disability-related condition that is impacting your academic progress, 
 there are academic screening appointments available on campus that can help diagnosis a previously 
 undiagnosed disability by visiting the DRES website and selecting “Sign-Up for an Academic Screening” 
 at the bottom of the page.”
 
 ## 7. Class Schedule
+
+### At a Glance Summary:
+\- Week 1: Course Overview and Getting Started with Python<br>
+\- Week 2: Variables, Lists, and Loops<br>
+\- Week 3: More Loops, Input, and Output<br>
+\- Week 4: Dictionaries, Tuples, and Sets<br>
+\- Week 5: Functions<br>
+\- Week 6: Modules and Numpy<br>
+\- Week 7: Classes<br>
+\- Week 8: More Classes and Turtles<br>
+\- Week 9: Agent-Based Simulations<br>
+\- Week 10: Natural Language Processing<br>
+\- Week 11: Plotting and Data Visualization<br>
+\- Week 12: Graphical User Interfaces<br>
+\- Week 13: Programming Experiments and Games<br>
+\- Week 14: Data Analysis and Pandas<br>
+\- Week 15: Machine Learning<br>
+
 ### Week 1
 #### Learning Objectives:
 - Course Overview
@@ -149,23 +167,24 @@ at the bottom of the page.”
 \- Chapter 2: http://interactivepython.org/runestone/static/thinkcspy/SimplePythonData/toctree.html<br>
 
 #### Lab Assignments:
+Due by Jan 21st at 11:59pm<br>
 \- Background Survey<br>
 \- Install Python 3<br>
-\- top_three.py<br>
-\- play_counts.py<br>
-\- big5.py
+\- Install Git<br>
+\- hello_world.py<br>
 
 #### Homework:
-No Extra Homework this week<br>
-Just complete and turn in all lab assignments<br>
-Due by Jan 21st at 11:59pm<br><br>
-<br>
+Due by Jan 21st at 11:59pm<br>
+homework1.py<br><br>
+
+
 ### Week 2: Jan 22nd & 24th<br>
 #### Learning Objectives:
 \- Variables<br>
 \- Conditionals<br>
 \- Lists<br>
 \- For Loops<br>
+
 #### Readings:
 **Python Tutorial 1**<br>
 \- https://www.w3schools.com/python/python_lists.asp<br>
@@ -190,10 +209,10 @@ Due by Jan 21st at 11:59pm<br><br>
 \- big5e.py<br>
 
 #### Homework:
-No Extra Homework this week<br>
-Just complete and turn in all lab assignments<br>
-Due by Jan 28th at 11:59pm<br><br>
-<br>
+Due by Jan 28th at 11:59pm<br>
+homework2.py<br><br>
+
+
 ### Week 3: Jan 29th & 31st<br>
 #### Learning Objectives:
 \- More Practice with For Loops<br>
@@ -215,7 +234,7 @@ Due by Jan 28th at 11:59pm<br><br>
 \- https://www.python-course.eu/python3_iterable_iterator.php<br>
 \- https://www.python-course.eu/python3_formatted_output.php<br>
 \- https://www.python-course.eu/python3_file_management.php<br>
-<br>
+
 **Think Python EBook**<br>
 \- Chapter 3: http://interactivepython.org/runestone/static/thinkcspy/Debugging/toctree.html<br>
 
@@ -227,7 +246,7 @@ Due by Jan 28th at 11:59pm<br><br>
 #### Homework:
 homework3.py
 Due by Feb 4th at 11:59pm<br><br>
-<br>
+
 
 ### Week 4: Feb 5th & 7th<br>
 #### Learning Objectives:
@@ -255,8 +274,9 @@ Due by Feb 4th at 11:59pm<br><br>
 \- lyric_word_counts.py<br>
 
 #### Homework:
-homework4.py<br>
-Due by Feb 11th at 11:59pm<br><br>
+Due by Feb 11th at 11:59pm<br>
+homework4.py<br><br>
+
 
 ### Week 5: Feb 12th & 14th<br>
 #### Learning Objectives:
@@ -277,10 +297,10 @@ Due by Feb 18th at 11:59pm<br>
 \- function_scope.py<br>
 \- complex_programs.py<br>
 
-
 #### Homework:
 Due by Feb 18th at 11:59pm<br>
-\- homework5.py<br><br>
+homework5.py<br><br>
+
 
 ### Week 6: Feb 19th & 21th<br>
 #### Learning Objectives:
@@ -297,152 +317,223 @@ Due by Feb 18th at 11:59pm<br>
 Due by Feb 25th at 11:59pm<br>
 \- standard_library_modules.py<br>
 \- numpy.py<br>
-\- card_game.py<br><br>
-
+\- blackjack.py<br><br>
 
 #### Homework:
-\- homework6.py<br>
-Due by Feb 25th at 11:59pm<br><br>
-<br>
+Due by Feb 25th at 11:59pm<br>
+homework6.py<br><br>
+
 
 ### Week 7: Feb 26th & 28th<br>
 #### Learning Objectives:
-\- What is NLP and Computational Linguistics?<br>
-\- Advanced String Processing<br>
-\- Regular Expressions<br>
-\- NLTK and spaCy<br>
+\- Object-Oriented Programming<br>
+\- Classes<br>
+\- Class Methods and Attributes<br>
 
 #### Readings:
-\- Information Coming Soon
+\- https://www.w3schools.com/python/python_classes.asp<br>
+\- https://www.python-course.eu/python3_object_oriented_programming.php<br>
 
 #### Lab Assignments:
-\- Information Coming Soon
+Due by Mar 4th at 11:59pm<br>
+\- classes.py<br>
+\- class_attributes.py<br>
+\- class_methods.py<br>
+\- analyze_lyrics.py<br>
 
 #### Homework:
-Information Coming Soon
 Due by Mar 4th at 11:59pm<br>
-<br>
+homework7.py<br><br>
+
+
 ### Week 8: Mar 5th & 7th<br>
 #### Learning Objectives:
-\- Introduction to Classes<br>
+\- More on Classes<br>
+\- Class Inheritance<br>
+\- Turtles<br>
 
 #### Readings:
-\- Information Coming Soon
+\- https://www.python-course.eu/python3_inheritance.php<br>
+\- http://interactivepython.org/runestone/static/thinkcspy/PythonTurtle/toctree.html<br>
+\- http://interactivepython.org/runestone/static/thinkcspy/ClassesBasics/toctree.html<br>
+\- http://interactivepython.org/runestone/static/thinkcspy/ClassesDiggingDeeper/Fractions.html<br>
 
 #### Lab Assignments:
-\- Information Coming Soon
+Due by Mar 11th at 11:59pm<br>
+\- inheritance.py<br>
+\- try_turtles.py<br>
+\- advanced_turtles.py<br>
+\- turtle_tag.py<br>
 
 #### Homework:
-Information Coming Soon
 Due by Mar 11th at 11:59pm<br>
-<br>
+homework8.py<br><br>
+
+
 ### Week 9: Mar 12th & 14th<br>
 #### Learning Objectives:
-\- More on Classes<br>
+\- Modeling and Simulation<br>
+\- Agent-Based Models<br>
+\- Braitenberg's Vehicles<br>
 
 #### Readings:
-\- Information Coming Soon
+\- Lewendowksy & Farrell (2018) CH1 (pp 1-23)<br>
+\- Braitenberg (1984) CH1-5 (pp 1-25)<br>
 
 #### Lab Assignments:
-\- Information Coming Soon
+Due by Mar 25th at 11:59pm<br>
+\- vehicle1.py<br>
+\- vehicle2.py<br>
+\- vehicle3.py<br>
+\- vehicle4.py<br>
+\- vehicle5.py<br>
 
 #### Homework:
-Information Coming Soon
 Due by Mar 25th at 11:59pm<br>
+homework9.py<br><br>
 
-#### Spring Break
-March 16th-24th
-<br>
+
+### Spring Break
+March 16th-24th<br><br>
+
+
 ### Week 10: Mar 26th & 28th<br>
 #### Learning Objectives:
-\- Turtles and Other Agents<br>
+\- What is NLP and Computational Linguistics?<br>
+\- Regular Expressions<br>
+\- NLTK<br>
 
 #### Readings:
-\- Information Coming Soon
+\- https://en.wikipedia.org/wiki/Natural_language_processing<br>
+\- https://www.w3schools.com/python/python_regex.asp<br>
+\- https://www.python-course.eu/python3_re.php<br>
+\- https://likegeeks.com/nlp-tutorial-using-python-nltk<br>
 
 #### Lab Assignments:
-\- Information Coming Soon
+\- regex1.py<br>
+\- regex2.py<br>
+\- try_nltk.py<br>
+\- music_corpus10.py<br>
+\- run_mc10.py<br>
 
 #### Homework:
-Information Coming Soon
 Due by Apr 1st at 11:59pm<br>
-<br>
+homework10.py<br><br>
+
+
 ### Week 11: Apr 2nd & 4th<br>
 #### Learning Objectives:
+\- Simple Plotting and Data Visualization<br>
+\- The Matplotlib Module<br>
+
+#### Readings:
+\- https://matplotlib.org/tutorials/introductory/usage.html#sphx-glr-tutorials-introductory-usage-py<br>
+\- https://matplotlib.org/tutorials/introductory/pyplot.html#sphx-glr-tutorials-introductory-pyplot-py<br>
+\- https://matplotlib.org/tutorials/introductory/sample_plots.html#sphx-glr-tutorials-introductory-sample-plots-py<br>
+\- https://www.labri.fr/perso/nrougier/teaching/matplotlib<br>
+
+#### Lab Assignments:
+\- try_matplotlib.py<br>
+\- simple_plot_examples.py<br>
+\- multiplots.py<br>
+\- music_corpus11.py<br>
+\- plot_stats11.py<br>
+\- run_mc11.py<br>
+
+#### Homework:
+Due by Apr 8th at 11:59pm<br>
+homework11.py<br><br>
+
+
+### Week 12: Apr 9th & 11th<br>
+#### Learning Objectives:
 \- Graphical User Interfaces<br>
+\- Event-Driven Programming<br>
 \- Tkinter<br>
 
 #### Readings:
-\- Information Coming Soon
+\- http://interactivepython.org/runestone/static/thinkcspy/GUIandEventDrivenProgramming/toctree.html<br>
+\- https://www.python-course.eu/tkinter_labels.php<br>
 
 #### Lab Assignments:
-\- Information Coming Soon
+\- tk_windows.py<br>
+\- tk_widgets.py<br>
+\- tk_interactive.py<br>
+\- tk_layout.py<br>
+\- tk_game.py<br>
 
 #### Homework:
-Information Coming Soon
-Due by Apr 8th at 11:59pm<br>
-<br>
-### Week 12: Apr 9th & 11th<br>
-#### Learning Objectives:
-\- Basic Computer Graphics<br>
-\- Programming Experiments<br>
-\- Programming Games<br>
-
-#### Readings:
-\- Information Coming Soon
-
-#### Lab Assignments:
-\- Information Coming Soon
-
-#### Homework:
-Information Coming Soon
 Due by Apr 15th at 11:59pm<br>
-<br>
+homework12.py<br><br>
+
+
 ### Week 13: Apr 16th & 18th<br>
 #### Learning Objectives:
-\- Vehicles Part 1<br>
+\- Programming Experiments<br>
+\- Basic 2D Computer Graphics<br>
 
 #### Readings:
-\- Information Coming Soon
+\- http://mcsp.wartburg.edu/zelle/python/graphics/graphics/graphref.html<br>
 
 #### Lab Assignments:
-\- Information Coming Soon
+\- graphics.py<br>
+\- draw_shapes.py<br>
+\- n-back.py<br>
+\- big5.py<br>
 
 #### Homework:
-Information Coming Soon
 Due by Apr 22nd at 11:59pm<br>
-<br>
+homework13.py<br><br>
+
+
 ### Week 14: Apr 23rd & 25th<br>
 #### Learning Objectives:
-\- Vehicles Part 2<br>
+\- Data Analysis in Python<br>
+\- Pandas<br>
+\- Statmodels<br>
 
 #### Readings:
-\- Information Coming Soon
+\- https://seeing-theory.brown.edu/regression-analysis/index.html#section1<br>
+\- https://seeing-theory.brown.edu/regression-analysis/index.html#section2<br>
+\- https://seeing-theory.brown.edu/regression-analysis/index.html#section3<br>
+\- https://pandas.pydata.org/pandas-docs/stable/getting_started/10min.html<br>
+\- http://greenteapress.com/thinkstats2/html/thinkstats2012.html<br>
 
 #### Lab Assignments:
-\- Information Coming Soon
+\- try_pandas.py<br>
+\- summarize.py<br>
+\- plotting.py<br>
+\- regression.py<br>
+\- analyze_big5.py<br>
 
 #### Homework:
-Information Coming Soon
 Due by Apr 29th at 11:59pm<br>
-<br>
+homework14.py<br><br>
+
+
 ### Week 15: Apr 30th & May 2nd<br>
 #### Learning Objectives:
-\- Machine Learning<br>
-\- Neural Networks<br>
-\- Cognitive Simulations<br>
+\- Defining Machine Learning<br>
+\- Basic Neural Networks<br>
 
 #### Readings:
-\- Information Coming Soon
+\- https://www.python-course.eu/machine_learning_terminology.php<br>
+\- https://www.python-course.eu/k_nearest_neighbor_classifier.php<br>
+\- http://neuralnetworksanddeeplearning.com/chap1.html<br>
 
 #### Lab Assignments:
-\- Information Coming Soon
+\- network.py<br>
+\- mnist_loader.py<br>
+\- visualize.py<br>
+\- run_nn.py<br>
 
 #### Homework:
-Information Coming Soon
 Due by May 6th at 11:59pm<br>
+homework15.py<br><br>
+
 
 ### Finals Exam Date:
 May 3rd<br>
 8:00am - 11:00am<br>
-Final Project Presentations
+There is no Final Exam<br>
+But we will still meet for final project presentations
