@@ -36,14 +36,13 @@ class Artist:
         """
         if not self._changed:
             return
-        self.lyric_freq_dict = {}
+        self.lyric_freq_dict: Dict[str, int] = {}
         self._num_tokens = 0
         for song in self.song_list:
             song_dict = song.lyric_freq_dict
             for song_lyric in song_dict:
-                if song_lyric not in self.lyric_freq_dict:
-                    self.lyric_freq_dict[song_lyric] = 0
-                self.lyric_freq_dict[song_lyric] += song_dict[song_lyric]
+                self.lyric_freq_dict[song_lyric] = self.lyric_freq_dict.get(
+                    song_lyric, 0) + song_dict[song_lyric]
             self._num_tokens += song.num_tokens
         self._changed = False
 
