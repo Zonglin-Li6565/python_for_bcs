@@ -163,8 +163,11 @@ class Human:
         self.sex = sex
 
 
+# Jon is a human named jon, 40 years only and is a male
 jon = Human("jon", 40, "Male")
+# Print the attribute dictionary
 print(jon.__dict__)
+# Print each item and value in the dictionary
 for item in jon.__dict__:
     print(item, jon.__dict__[item])
 

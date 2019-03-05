@@ -42,6 +42,7 @@ class Human:
         self.name = name
         self.age = age
         self.sex = sex
+        self.height = 0
 
     def celebrate_birthday(self):
         self.age += 1
@@ -49,6 +50,14 @@ class Human:
             "\nHappy Birthday to {}! {} is now {} years old!".format(self.name,
                                                                      self.name,
                                                                      self.age))
+
+    def get_taller(self):
+        self.height += 1
+        return self.height
+
+    def get_name(self):
+        self.name += 'a'
+        return '%s%d' % (self.name, self.age)
 
 
 """ You will notice a few things above:.
@@ -74,6 +83,8 @@ with the class instance's name,
 jon = Human("jon", 40, "Male")
 jon.celebrate_birthday()
 
-# Create two more methods in the class definition above that change attributes of class. Feel free to add new
-# attributes to the class definition that may be things about the instance that could change over time. Make sure at
+# Create two more methods in the class definition above that change
+# attributes of class. Feel free to add new
+# attributes to the class definition that may be things about the instance
+# that could change over time. Make sure at
 # least one of the methods is a 'fruitful' method.

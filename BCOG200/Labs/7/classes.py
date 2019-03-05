@@ -35,9 +35,8 @@ way. The difference comes down to whether
 the language, at its core, "thinks" in terms of objects, or "thinks" in terms 
 of functions. Python is an object-oriented
 language because objects (like strings, lists, dictionaries, etc.) are the 
-primitive building blocks of the language,
-and functions are parts of those building blocks, rather than the other way 
-around.
+primitive building blocks of the language, and functions are parts of those 
+building blocks, rather than the other way around.
 
 In addition to built-in classes like lists, we can create our own classes 
 when we need to make complex data structures
@@ -85,6 +84,20 @@ your class to show actual information about the class, you can add that
 functionality, which we will show later (when
 our class has information to show."""
 
+
 # define your own class below.
 # Then write a loop that creates 10 instances of the class stored in a list.
 # Then write another loop that goes through the list and prints each one.
+
+
+class Bomb:
+    def __init__(self, idx: int) -> None:
+        self.idx = idx
+
+    def __str__(self) -> str:
+        return '%d: Boom' % self.idx
+
+
+bombs = [Bomb(i) for i in range(10)]
+for bomb in bombs:
+    print(bomb)

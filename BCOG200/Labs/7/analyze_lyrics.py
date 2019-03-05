@@ -67,7 +67,7 @@ class Artist:
 
 
 class Song:
-    def __init__(self, title: str, file_location: str):
+    def __init__(self, title: str, file_location: str) -> None:
         self.title: str = title
         self.file_location: str = file_location
         self.lyric_list: List[str] = []
@@ -110,7 +110,7 @@ def remove_hidden_files(input_list: List[str]) -> List[str]:
     return output_list
 
 
-def main():
+def main() -> None:
     # A list of artist object
     artist_object_list: List[Artist] = []
     # The input directory specified on the cmd line
