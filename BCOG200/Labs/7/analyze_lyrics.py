@@ -20,6 +20,7 @@ from typing import Dict, List
 #           Then you can count the artist's overall types and tokens from
 #           that summary dictionary
 
+
 class Artist:
     def __init__(self, name: str, directory_location: str) -> None:
         self.name: str = name
