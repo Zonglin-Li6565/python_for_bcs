@@ -1,10 +1,12 @@
-""" There is a lot of fun stuff you can do with your turtles. You can find full documentation here:"""
+""" There is a lot of fun stuff you can do with your turtles. You can find
+full documentation here:"""
 # https://docs.python.org/3.3/library/turtle.html?highlight=turtle
 
-""" Comment the turtle program below, then add some of your own commands to make some turtles do some fun stuff."""
-
-import turtle
 import random
+import turtle
+
+""" Comment the turtle program below, then add some of your own commands to 
+make some turtles do some fun stuff."""
 
 HEIGHT = 600
 WIDTH = 800
@@ -26,17 +28,17 @@ def create_turtles():
         new_turtle = turtle.Turtle()
         new_turtle.shape("turtle")
         new_turtle.penup()
-        new_turtle.fillcolor(random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
+        new_turtle.fillcolor(random.randint(0, 255), random.randint(0, 255),
+                             random.randint(0, 255))
         new_turtle.left(random.randint(0, 180))
-        new_turtle.forward(random.randint(1, MAX/2))
+        new_turtle.forward(random.randint(1, MAX / 2))
         turtle_list.append(new_turtle)
     return turtle_list
 
 
 def chase(turtle_list):
-    for i in range(NUM_TURTLES-1):
-
-        position = turtle_list[i+1].position()
+    for i in range(NUM_TURTLES - 1):
+        position = turtle_list[i + 1].position()
         direction = turtle_list[i].towards(position)
 
         distance = turtle_list[i].distance(position)
@@ -51,5 +53,6 @@ def main():
     turtle_list = create_turtles()
     chase(turtle_list)
     wn.mainloop()
+
 
 main()
