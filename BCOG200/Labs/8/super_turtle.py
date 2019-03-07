@@ -22,11 +22,10 @@ about the turtle class, and create a
 
 """
 
-import turtle
+from turtle import Turtle, Screen
 
 
-class SuperTurtle(turtle.Turtle):
-
+class SuperTurtle(Turtle):
     def __init__(self, name) -> None:
         self.color = 0
         super().__init__()
@@ -57,9 +56,68 @@ class SuperTurtle(turtle.Turtle):
         self.color %= 255
 
 
+STAMP_SIZE = 20
+
+
+class MoveTurtle(Turtle):
+    def __init__(self, stamp_size_x: int, stamp_size_y: int,
+                 shape: str) -> None:
+        super().__init__()
+        self.penup()
+        self.shape(shape)
+        self.setheading(0)
+        self.turtlesize(stamp_size_y, stamp_size_x)
+        self.pixel_size_x = stamp_size_x * STAMP_SIZE
+        self.pixel_size_y = stamp_size_y * STAMP_SIZE
+        self._speed_x = 0
+        self._speed_y = 0
+
+    @property
+    def move_speed_x(self) -> int:
+        return self._speed_x
+
+    @move_speed_x.setter
+    def move_speed_x(self, speed: int) -> None:
+        self._speed_x = speed
+
+    @property
+    def move_speed_y(self) -> int:
+        return self._speed_y
+
+    @move_speed_y.setter
+    def move_speed_y(self, speed: int) -> None:
+        self._speed_y = speed
+
+    def set_location(self, x: int, y: int) -> None:
+        self.penup()
+        self.setx(x)
+        self.sety(y)
+
+    def maybe_collide(self, other: 'MoveTurtle') -> bool:
+        x_diff = other.xcor() - self.xcor()
+        y_diff = other.ycor() - self.ycor()
+        if (abs(x_diff) < (self.pixel_size_x + other.pixel_size_x) / 2
+                and other.ycor() - other.pixel_size_y / 2 < self.ycor()
+                and other.ycor() + other.pixel_size_y / 2 > self.ycor()):
+            if x_diff * self._speed_x >= 0:
+                self._speed_x = -self._speed_x
+            return True
+        if (abs(y_diff) < (self.pixel_size_y + other.pixel_size_y) / 2
+                and other.xcor() - other.pixel_size_x / 2 < self.xcor()
+                and other.xcor() + other.pixel_size_x / 2 > self.xcor()):
+            if y_diff * self._speed_y >= 0:
+                self._speed_y = -self._speed_y
+            return True
+        return False
+
+    def move(self) -> None:
+        self.set_location(self.xcor() + self.move_speed_x,
+                          self.ycor() + self.move_speed_y)
+
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser('SuperTurtle')
-    parser.add_argument('-g', choices=['triangle', 'tree'],
+    parser.add_argument('-g', choices=['triangle', 'tree', 'pingpong'],
                         help='Draw which one?')
 
     if len(sys.argv) == 1:
@@ -68,13 +126,9 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
 
-    wn = turtle.Screen()
+    wn = Screen()
     wn.delay(1)
     wn.colormode(255)
-
-    my_turtle = SuperTurtle('Jon')
-
-    my_turtle.set_location(0, -200)
 
 
     def update_color():
@@ -94,8 +148,8 @@ if __name__ == '__main__':
         return wrapper
 
 
-    def draw_tree(x: int, y: int, angle: int, distance: int,
-                  color: int, angle_inc: int) -> None:
+    def draw_tree(my_turtle: SuperTurtle, x: int, y: int, angle: int,
+                  distance: int, color: int, angle_inc: int) -> None:
         if distance < 15 or angle_inc <= 0:
             return
         my_turtle.set_location(x, y)
@@ -104,17 +158,18 @@ if __name__ == '__main__':
         my_turtle.pendown()
         my_turtle.forward(distance)
         decay_distance = int(distance * 0.85)
-        draw_tree(my_turtle.xcor(), my_turtle.ycor(), angle + angle_inc,
-                  decay_distance, color + 25, angle_inc - 1)
-        draw_tree(my_turtle.xcor(), my_turtle.ycor(), angle - angle_inc,
-                  decay_distance, color + 25, angle_inc - 1)
+        draw_tree(my_turtle, my_turtle.xcor(), my_turtle.ycor(),
+                  angle + angle_inc, decay_distance, color + 25, angle_inc - 1)
+        draw_tree(my_turtle, my_turtle.xcor(), my_turtle.ycor(),
+                  angle - angle_inc, decay_distance, color + 25, angle_inc - 1)
         my_turtle.set_location(x, y)
         my_turtle.setheading(angle)
         my_turtle.pencolor((0, color, 0))
 
 
-    def draw_triangle(x: int, y: int, length: int) -> None:
-        if length < 4:
+    def draw_triangle(my_turtle: SuperTurtle, x: int, y: int,
+                      length: int) -> None:
+        if length < 16:
             return
         my_turtle.set_location(x, y)
         headings = [-60, 180, 60]
@@ -122,23 +177,77 @@ if __name__ == '__main__':
             my_turtle.setheading(heading)
             my_turtle.pendown()
             my_turtle.forward(length)
-        draw_triangle(x, y, length // 2)
+        draw_triangle(my_turtle, x, y, length // 2)
         my_turtle.setheading(-60)
         my_turtle.penup()
         my_turtle.forward(length // 2)
-        draw_triangle(my_turtle.xcor(), my_turtle.ycor(), length // 2)
+        draw_triangle(my_turtle, my_turtle.xcor(), my_turtle.ycor(),
+                      length // 2)
         my_turtle.set_location(x, y)
         my_turtle.setheading(-120)
         my_turtle.penup()
         my_turtle.forward(length // 2)
-        draw_triangle(my_turtle.xcor(), my_turtle.ycor(), length // 2)
+        draw_triangle(my_turtle, my_turtle.xcor(), my_turtle.ycor(),
+                      length // 2)
         my_turtle.set_location(x, y)
+
+
+    boundaries = []
+    pads = []
+
+    ball = None
+
+
+    def move_ball() -> None:
+        ball = MoveTurtle(1, 1, 'circle')
+        box_size = 740
+        wall1 = MoveTurtle(1, box_size // STAMP_SIZE, 'square')
+        wall1.set_location(-box_size // 2, 0)
+        wall2 = MoveTurtle(1, box_size // STAMP_SIZE, 'square')
+        wall2.set_location(box_size // 2, 0)
+        wall3 = MoveTurtle(box_size // STAMP_SIZE, 1, 'square')
+        wall3.set_location(0, -box_size // 2)
+        wall4 = MoveTurtle(box_size // STAMP_SIZE, 1, 'square')
+        wall4.set_location(0, box_size // 2)
+        boundaries.append(wall1)
+        boundaries.append(wall2)
+        boundaries.append(wall3)
+        boundaries.append(wall4)
+        print(wall1.xcor(), wall1.ycor())
+
+        pad1 = MoveTurtle(1, 15, 'square')
+        pad1.set_location(-200, 0)
+        pad1.move_speed_x = 0
+        pad1.move_speed_y = 10
+        pads.append(pad1)
+
+        pad2 = MoveTurtle(1, 15, 'square')
+        pad2.set_location(200, 0)
+        pad2.move_speed_x = 0
+        pad2.move_speed_y = -10
+        pads.append(pad2)
+
+        ball.move_speed_y = -2
+        ball.move_speed_x = -4
+        while True:
+            ball.move()
+            for pad in pads:
+                pad.move()
+            time.sleep(0.005)
+            for wall in boundaries:
+                ball.maybe_collide(wall)
+            for pad in pads:
+                ball.maybe_collide(pad)
+                for wall in boundaries:
+                    pad.maybe_collide(wall)
 
 
     @timed
     def draw_tree_wrapper():
         try:
-            draw_tree(0, -250, 90, 100, 0, 25)
+            my_turtle = SuperTurtle('Jon')
+            my_turtle.set_location(0, -200)
+            draw_tree(my_turtle, 0, -250, 90, 100, 0, 25)
         except KeyboardInterrupt:
             return
 
@@ -146,7 +255,9 @@ if __name__ == '__main__':
     @timed
     def draw_triangle_wrapper():
         try:
-            draw_triangle(0, 250, 512)
+            my_turtle = SuperTurtle('Jon')
+            my_turtle.set_location(0, -200)
+            draw_triangle(my_turtle, 0, 250, 512)
         except KeyboardInterrupt:
             return
 
@@ -157,6 +268,8 @@ if __name__ == '__main__':
         threading.Thread(target=draw_tree_wrapper).start()
     elif args.g == 'triangle':
         threading.Thread(target=draw_triangle_wrapper).start()
+    elif args.g == 'pingpong':
+        threading.Thread(target=move_ball).start()
 
     wn.mainloop()
 
