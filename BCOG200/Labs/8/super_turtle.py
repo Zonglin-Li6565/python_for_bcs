@@ -233,7 +233,6 @@ if __name__ == '__main__':
             ball.move()
             for pad in pads:
                 pad.move()
-            time.sleep(0.005)
             for wall in boundaries:
                 ball.maybe_collide(wall)
             for pad in pads:
