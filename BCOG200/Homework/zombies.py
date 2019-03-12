@@ -56,7 +56,6 @@ class Zombie(Turtle):
         next_human = None
         for human in humans:
             distance = self._distance_to(human)
-            print(distance)
             if distance < 25:
                 killed_human.append(human)
                 new_zombies.append(self.attack(human))

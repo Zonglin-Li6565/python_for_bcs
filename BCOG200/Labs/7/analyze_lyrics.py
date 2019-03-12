@@ -1,4 +1,5 @@
 import os
+import string
 import sys
 from typing import Dict, List
 
@@ -67,6 +68,11 @@ class Artist:
         self._changed = True
 
 
+def clean_lyrics(lyrics: str) -> str:
+    return ''.join(
+        filter(lambda c: not (c.isupper() or c in string.punctuation), lyrics))
+
+
 class Song:
     def __init__(self, title: str, file_location: str) -> None:
         self.title: str = title
@@ -80,6 +86,7 @@ class Song:
 
     @lyric.setter
     def lyric(self, lyric: str) -> None:
+        lyric = clean_lyrics(lyric)
         lines = lyric.splitlines(keepends=False)
         for line in lines:
             line = line.lower().strip()
@@ -158,4 +165,5 @@ def main() -> None:
                 song.title, song.num_types, song.num_tokens))
 
 
-main()
+if __name__ == '__main__':
+    main()

@@ -22,6 +22,9 @@ about the turtle class, and create a
 
 """
 
+# You can run the program without any command arguments and see the available
+# options
+
 from turtle import Turtle, Screen
 
 
@@ -284,3 +287,4 @@ you only need to change it in the class definition, not everywhere you used
 it."""
 
 # Comment this code and then add your own turtle functions.
+

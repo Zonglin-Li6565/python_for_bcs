@@ -8,6 +8,8 @@ import turtle
 """ Comment the turtle program below, then add some of your own commands to 
 make some turtles do some fun stuff."""
 
+# Fun stuff are in super_turtle.py
+
 HEIGHT = 600
 WIDTH = 800
 MAX = max(HEIGHT, WIDTH)
@@ -15,6 +17,10 @@ NUM_TURTLES = 5
 
 
 def create_screen():
+    """
+    Create a screen
+    :return: the screen
+    """
     wn = turtle.Screen()
     wn.setup(1200, 1080, startx=None, starty=None)
     wn.colormode(255)
@@ -23,6 +29,11 @@ def create_screen():
 
 
 def create_turtles():
+    """
+    Create a list of turtle with random color and move then forward for some
+    random distance
+    :return: the list of turtle
+    """
     turtle_list = []
     for i in range(NUM_TURTLES):
         new_turtle = turtle.Turtle()
@@ -37,6 +48,11 @@ def create_turtles():
 
 
 def chase(turtle_list):
+    """
+    Make turtle chase the next one
+    :param turtle_list: The list of turtles
+    :return: None
+    """
     for i in range(NUM_TURTLES - 1):
         position = turtle_list[i + 1].position()
         direction = turtle_list[i].towards(position)
@@ -49,6 +65,11 @@ def chase(turtle_list):
 
 
 def main():
+    """
+    Main function for creating the screen, create turtles and make then chase
+    each other
+    :return: None
+    """
     wn = create_screen()
     turtle_list = create_turtles()
     chase(turtle_list)

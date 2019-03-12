@@ -5,8 +5,23 @@ class Animal:
         self.can_move = True
         self.can_grow = True
 
+    def __str__(self):
+        """
+        Return a brief representation of the object
+        :return: repr
+        """
+        return self.name
+
+    def __repr__(self):
+        """
+        Returns a full string representation of the object
+        :return: repr
+        """
+        return '\n'.join(map(lambda p: '%s: %s' % p, self.__dict__.items()))
+
     def say_hello(self):
         print("\nMy name is {}".format(self.name))
+
 
 class Bird(Animal):
     def __init__(self, name):
@@ -22,7 +37,9 @@ class Bird(Animal):
 def q1():
     print("Question 1")
     # What kind of data structure is a turtle?
-    your_answer = ""
+    your_answer = """
+    It's a class from turtle module.
+    """
     print(your_answer)
 
 
@@ -30,16 +47,23 @@ def q2():
     print("Question 2")
     # What are three examples of turtle attributes?
     # What are three examples of turtle methods?
-    your_answer = ""
+    your_answer = """
+    Attributes: drawingLineItem, items, currentLine
+    Methods: reset, setundobuffer, undobufferentries
+    """
     print(your_answer)
 
 
 def q3():
     print("Question 3")
-    # When you print out a instance of a class, you get the ugly class-instance 23f1s23g421 nonsense.
-    # In the reading, you read about a way to create a class method that gives you control over what prints
-    # out. What is the name of the special method? Create a method for the Animal class above that, when
-    # you print the class instance as is done below, prints out all the attributes of that class.
+    # When you print out a instance of a class, you get the ugly
+    # class-instance 23f1s23g421 nonsense.
+    # In the reading, you read about a way to create a class method that
+    # gives you control over what prints
+    # out. What is the name of the special method? Create a method for the
+    # Animal class above that, when
+    # you print the class instance as is done below, prints out all the
+    # attributes of that class.
 
     jon = Animal("jon")
     print(jon)
@@ -47,8 +71,8 @@ def q3():
 
 def q4():
     print("Question 4 is worth 2 points")
-    # add a function called clean_lyrics to last week's analyze lyrics program, that removes capital letters
-    # and punctuation.
+    # add a function called clean_lyrics to last week's analyze lyrics
+    # program, that removes capital letters and punctuation.
     your_answer = ""
     print(your_answer)
 
@@ -57,7 +81,8 @@ def q5():
     print("Question 5 is worth 5 points")
 
     """Write a separate program called zombies.py, that:
-        creates a class "Human" and a class "Zombie that inherits from class turtle. 
+        creates a class "Human" and a class "Zombie that inherits from class 
+        turtle. 
         
         each human's init function should:
             - make human's shape a human image (a 50x50 pixel '.gif' file
@@ -73,9 +98,11 @@ def q5():
     
         create a method for zombie called "chase", where the zombie
             - turns in the direction of the nearest human
-            - moves in that direction up to zombie.speed units to catch the human
+            - moves in that direction up to zombie.speed units to catch the 
+            human
         
-        create a method for the zombie called "attack", which is called by "chase" if zombie gets within 25 units of 
+        create a method for the zombie called "attack", which is called by 
+        "chase" if zombie gets within 25 units of 
         the human. this function should:
             - kill the human turtle
             - replace it with a zombie turtle
@@ -83,15 +110,20 @@ def q5():
             - remove the human from the human list
         
         create a method for the human function called "run_away", that
-            - picks a direction to run away (you can decide how the human chooses what direction)
+            - picks a direction to run away (you can decide how the human 
+            chooses what direction)
             - move up to human.speed units in that direction
             
         in main function
-            -create a human_list with H human instances (a variable that you change)
-            -create a zombie_list with Z zombie instances (a variable that you can change
+            -create a human_list with H human instances (a variable that you 
+            change)
+            -create a zombie_list with Z zombie instances (a variable that 
+            you can change
         
-        create a loop that runs for NUM_TURNS times (or until all humans are dead), on each turn:
-            - cycles through each zombie, calls their chase function, and if appropriate, calls their attack function
+        create a loop that runs for NUM_TURNS times (or until all humans are 
+        dead), on each turn:
+            - cycles through each zombie, calls their chase function, and if 
+            appropriate, calls their attack function
             - cycles through each human, and calls their run function
     
         
@@ -99,11 +131,13 @@ def q5():
 
     """
 
+
 def main():
     q1()
     q2()
     q3()
     q4()
     q5()
+
 
 main()
