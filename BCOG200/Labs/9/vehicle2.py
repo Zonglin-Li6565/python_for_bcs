@@ -12,6 +12,11 @@ import turtle
 '''
 
 
+# Deep insights: First, the closer the vehicle is to the heat source,
+# the faster the speed. Also, for the same relative angle of heat source to
+# vehicle, the closer the vehicle is, the sharper the turn is.
+
+
 class HeatSource(turtle.Turtle):
 
     def __init__(self):
