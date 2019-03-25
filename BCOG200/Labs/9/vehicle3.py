@@ -16,10 +16,8 @@ import turtle
 class HeatSource(turtle.Turtle):
 
     def __init__(self):
-        turtle.Turtle.__init__(self, visible=False)
-        self.shape('circle')
+        turtle.Turtle.__init__(self, 'sun.gif', visible=False)
         self.penup()
-        self.color(255, 190, 60)
         self.goto(random.randint(-200, -50), random.randint(-200, -50))
         self.showturtle()
         self.type = 'heat'
@@ -28,11 +26,8 @@ class HeatSource(turtle.Turtle):
 class ColdSource(turtle.Turtle):
 
     def __init__(self):
-        turtle.Turtle.__init__(self, visible=False)
-        turtle.Turtle.__init__(self, visible=False)
-        self.shape('circle')
+        turtle.Turtle.__init__(self, 'moon.gif', visible=False)
         self.penup()
-        self.color(60, 0, 190)
         self.goto(random.randint(50, 200), random.randint(50, 200))
         self.showturtle()
         self.type = 'cold'
@@ -126,10 +121,7 @@ class Vehicle3(turtle.Turtle):
             combined_turn_amount += turn_amount
             combined_speed += average_speed
 
-        try:
-            self.right(combined_turn_amount)
-        except:
-            print(combined_turn_amount)
+        self.right(combined_turn_amount)
         self.forward(combined_speed)
         self.moves += 1
 
@@ -145,6 +137,8 @@ def create_screen():
 
 def main():
     wn = create_screen()
+    wn.addshape('sun.gif')
+    wn.addshape('moon.gif')
 
     num_vehicles = 50
     num_heat_sources = 3
