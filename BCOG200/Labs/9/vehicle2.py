@@ -87,6 +87,10 @@ class Vehicle2(turtle.Turtle):
         sin_angle = math.sin(math.radians(angle))
         left_distance = distance - sin_angle
         right_distance = distance + sin_angle
+        if left_distance == 0:
+            left_distance = 0.00001
+        if right_distance == 0:
+            right_distance = 0.00001
         return left_distance, right_distance
 
     def compute_speed(self, left_distance, right_distance):
