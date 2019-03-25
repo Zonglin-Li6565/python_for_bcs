@@ -12,70 +12,40 @@ import turtle
 '''
 
 
-# Deep insights: First, the closer the vehicle is to the heat source,
-# the faster the speed. Also, for the same relative angle of heat source to
-# vehicle, the closer the vehicle is, the sharper the turn is.
-
-
 class HeatSource(turtle.Turtle):
 
     def __init__(self):
-        """
-        Constructor of HeatSource with no argument
-        """
         turtle.Turtle.__init__(self, visible=False)
-        # The shape of heat source is circle
         self.shape('circle')
-        # Doesn't draw anything
         self.penup()
-        # Color is this
         self.color(255, 190, 60)
-        # Set at a random location
         self.goto(random.randint(-200, 200), random.randint(-200, 200))
-        # Make it visible
         self.showturtle()
 
 
 class Vehicle2(turtle.Turtle):
 
     def __init__(self, input_list, vehicle_id, vehicle_type):
-        """
-        Construct a vehicle
-        :param input_list: A list of heat sources
-        :param vehicle_id: The ID of this vehicle
-        :param vehicle_type: The type of the vehicle
-        """
-        # Base class constructor
         turtle.Turtle.__init__(self, visible=False)
-        # Save to attributes
         self.vehicle_id = vehicle_id
         self.vehicle_type = vehicle_type
         self.input_list = input_list
         self.create_vehicle()
-        # Parameters for calculating speed
-        self.speed_parameters = [20, 0.5, 1]
-        # Parameters for computing the
-        self.turn_parameters = [20]
+        self.speed_parameters = [10, .2, 0]
+        self.turn_parameters = [300]
         self.moves = 0
 
     def create_vehicle(self):
         self.shape('turtle')
-        # Set size of turtle to 1
         self.turtlesize(1)
-        # Do not draw
         self.penup()
-        # Special color for crossed connections
         if self.vehicle_type == 'crossed':
             self.color(random.randint(0, 150), random.randint(0, 150), 255)
         else:
             self.color(255, random.randint(0, 150), random.randint(0, 150))
-        # Move to a random location
         self.goto(random.randint(-290, 290), random.randint(-290, 290))
-        # Turn turtle by a random amount
         self.right(random.randint(0, 360))
-        # Draw on move
-        self.pendown()
-        # Make visible
+        # self.pendown()
         self.showturtle()
 
     def get_input_information(self, position):
@@ -95,19 +65,11 @@ class Vehicle2(turtle.Turtle):
 
     def compute_speed(self, left_distance, right_distance):
         if self.vehicle_type == 'crossed':
-            left_speed = (self.speed_parameters[0] / (
-                    right_distance ** self.speed_parameters[1])) - \
-                         self.speed_parameters[2]
-            right_speed = (self.speed_parameters[0] / (
-                    left_distance ** self.speed_parameters[1])) - \
-                          self.speed_parameters[2]
+            left_speed = 1 / ((right_distance + 5) ** 0.2)
+            right_speed = 1 / ((left_distance + 5) ** 0.2)
         else:
-            left_speed = (self.speed_parameters[0] / (
-                    left_distance ** self.speed_parameters[1])) - \
-                         self.speed_parameters[2]
-            right_speed = (self.speed_parameters[0] / (
-                    right_distance ** self.speed_parameters[1])) - \
-                          self.speed_parameters[2]
+            left_speed = 1 / ((left_distance + 5) ** 0.2)
+            right_speed = 1 / ((right_distance + 5) ** 0.2)
         combined_speed = (left_speed + right_speed) / 2
         return left_speed, right_speed, combined_speed
 
@@ -129,7 +91,7 @@ class Vehicle2(turtle.Turtle):
             turn_amount = self.compute_turn_amount(left_speed, right_speed)
             combined_turn_amount += turn_amount
             combined_speed += average_speed
-
+        # print(self.vehicle_id, combined_speed, combined_turn_amount)
         try:
             self.right(combined_turn_amount)
         except:
@@ -149,8 +111,8 @@ def create_screen():
 
 def main():
     wn = create_screen()
-    num_vehicles = 5
-    num_heat_sources = 6
+    num_vehicles = 100
+    num_heat_sources = 4
 
     vehicle_list = []
     input_list = []
@@ -169,5 +131,4 @@ def main():
         wn.update()
 
 
-if __name__ == '__main__':
-    main()
+main()

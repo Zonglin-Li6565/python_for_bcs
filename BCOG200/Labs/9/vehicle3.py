@@ -22,20 +22,6 @@ class HeatSource(turtle.Turtle):
         self.color(255, 190, 60)
         self.goto(random.randint(-200, 200), random.randint(-200, 200))
         self.showturtle()
-        self.type = 0
-
-
-class ColdSource(turtle.Turtle):
-
-    def __init__(self):
-        turtle.Turtle.__init__(self, visible=False)
-        turtle.Turtle.__init__(self, visible=False)
-        self.shape('circle')
-        self.penup()
-        self.color(60, 255, 190)
-        self.goto(random.randint(-200, 200), random.randint(-200, 200))
-        self.showturtle()
-        self.type = 1
 
 
 class Vehicle3(turtle.Turtle):
@@ -49,7 +35,6 @@ class Vehicle3(turtle.Turtle):
         self.speed_parameters = [20, 0.2, 6]
         self.turn_parameters = [20]
         self.moves = 0
-        self.distance_weights = [[-0.01, 1], [1, -0.01]]
 
     def create_vehicle(self):
         self.shape('turtle')
@@ -75,30 +60,21 @@ class Vehicle3(turtle.Turtle):
         right_distance = distance + sin_angle
         return left_distance, right_distance
 
-    def compute_speed(self, left_distance, right_distance, source_type):
-        left_weight, right_weight = self.distance_weights[source_type]
+    def compute_speed(self, left_distance, right_distance):
         if self.vehicle_type == 'crossed':
-            left_speed = ((self.speed_parameters[0] /
-                           ((right_distance * left_weight
-                             + left_distance * right_weight)
-                            ** self.speed_parameters[1]))
-                          - self.speed_parameters[2])
-            right_speed = ((self.speed_parameters[0] /
-                            ((right_distance * right_weight
-                              + left_distance * left_weight)
-                             ** self.speed_parameters[1]))
-                           - self.speed_parameters[2])
+            left_speed = (self.speed_parameters[0] / (
+                        right_distance ** self.speed_parameters[1])) - \
+                         self.speed_parameters[2]
+            right_speed = (self.speed_parameters[0] / (
+                        left_distance ** self.speed_parameters[1])) - \
+                          self.speed_parameters[2]
         else:
-            right_speed = ((self.speed_parameters[0] /
-                            ((right_distance * left_weight
-                              + left_distance * right_weight)
-                             ** self.speed_parameters[1]))
-                           - self.speed_parameters[2])
-            left_speed = ((self.speed_parameters[0] /
-                           ((right_distance * right_weight
-                             + left_distance * left_weight)
-                            ** self.speed_parameters[1]))
-                          - self.speed_parameters[2])
+            left_speed = (self.speed_parameters[0] / (
+                        left_distance ** self.speed_parameters[1])) - \
+                         self.speed_parameters[2]
+            right_speed = (self.speed_parameters[0] / (
+                        right_distance ** self.speed_parameters[1])) - \
+                          self.speed_parameters[2]
         combined_speed = (left_speed + right_speed) / 2
         return left_speed, right_speed, combined_speed
 
@@ -116,7 +92,7 @@ class Vehicle3(turtle.Turtle):
             left_distance, right_distance = self.get_sensor_distances(
                 input_distance, input_angle)
             left_speed, right_speed, average_speed = self.compute_speed(
-                left_distance, right_distance, current_input.type)
+                left_distance, right_distance)
             turn_amount = self.compute_turn_amount(left_speed, right_speed)
             combined_turn_amount += turn_amount
             combined_speed += average_speed
@@ -141,17 +117,13 @@ def create_screen():
 def main():
     wn = create_screen()
     num_vehicles = 5
-    num_heat_sources = 2
-    num_cold_sources = 1
+    num_heat_sources = 4
 
     vehicle_list = []
     input_list = []
 
     for i in range(num_heat_sources):
         input_list.append(HeatSource())
-
-    for i in range(num_cold_sources):
-        input_list.append(ColdSource())
 
     for i in range(num_vehicles):
         vehicle_list.append(
@@ -164,5 +136,4 @@ def main():
         wn.update()
 
 
-if __name__ == '__main__':
-    main()
+main()

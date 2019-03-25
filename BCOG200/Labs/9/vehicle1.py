@@ -1,4 +1,3 @@
-import math
 import random
 import turtle
 
@@ -33,16 +32,13 @@ class Vehicle1(turtle.Turtle):
         self.showturtle()
 
     def move(self, x, y):
-        while True:
-            towards = self.towards(self.heatsource.xcor(),
-                                   self.heatsource.ycor())
+        speed = 1
+        while speed > 0:
             distance = self.distance(self.heatsource.position())
-            proportion = (0.3 / math.log(distance))
-            current_heading = self.heading()
-            current_heading += (towards - current_heading) * proportion
-            print(proportion)
-            self.setheading(current_heading)
-            self.forward(0.1)
+            speed = (20 / (distance ** 0.2)) - 6
+            if speed > 0:
+                self.forward(speed)
+            # print(speed, distance)
             self.wn.update()
 
 
