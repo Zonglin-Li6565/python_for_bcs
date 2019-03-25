@@ -20,9 +20,9 @@ class HeatSource(turtle.Turtle):
         self.shape('circle')
         self.penup()
         self.color(255, 190, 60)
-        self.goto(random.randint(-200, 200), random.randint(-200, 200))
+        self.goto(random.randint(-200, 0), random.randint(-200, 0))
         self.showturtle()
-        self.type = 0
+        self.type = 'heat'
 
 
 class ColdSource(turtle.Turtle):
@@ -33,9 +33,9 @@ class ColdSource(turtle.Turtle):
         self.shape('circle')
         self.penup()
         self.color(60, 255, 190)
-        self.goto(random.randint(-200, 200), random.randint(-200, 200))
+        self.goto(random.randint(0, 200), random.randint(0, 200))
         self.showturtle()
-        self.type = 1
+        self.type = 'cold'
 
 
 class Vehicle3(turtle.Turtle):
@@ -49,7 +49,7 @@ class Vehicle3(turtle.Turtle):
         self.speed_parameters = [20, 0.2, 6]
         self.turn_parameters = [20]
         self.moves = 0
-        self.distance_weights = [[0, 1], [1, 0]]
+        self.distance_weights = {'heat': [0, 1], 'cold': [1, 0]}
 
     def create_vehicle(self):
         self.shape('turtle')
@@ -142,7 +142,7 @@ def main():
     wn = create_screen()
     num_vehicles = 5
     num_heat_sources = 2
-    num_cold_sources = 1
+    num_cold_sources = 2
 
     vehicle_list = []
     input_list = []
