@@ -41,7 +41,6 @@ class Vehicle3(turtle.Turtle):
         self.vehicle_type = vehicle_type
         self.input_list = input_list
         self.create_vehicle()
-        self.speed_parameters = [3, 0.2, 1]
         self.turn_parameters = [40]
         self.moves = 0
         self.prefer = prefer
@@ -94,12 +93,7 @@ class Vehicle3(turtle.Turtle):
             left_speed = self._compute_speed_preference(left_distance,
                                                         source_type)
 
-        # Make the speed to be inhibited.
-        if source_type != self.prefer:
-            right_speed = 2 - right_speed
-            left_speed = 2 - left_speed
-
-        combined_speed = (left_speed + right_speed) / 5
+        combined_speed = (left_speed + right_speed) / 2
         return left_speed, right_speed, combined_speed
 
     def compute_turn_amount(self, left_speed, right_speed):
