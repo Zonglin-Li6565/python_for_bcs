@@ -4,12 +4,12 @@ import turtle
 
 '''
     Modify this program in the following ways:
-        - Add at least 1 more class representing another kind of input other 
-        than heat.
-        - Have the input_list contain multiple kinds of input sources.
-        - Use custom images for each input sources
-        - Modify vehicle 3 so that it has an 'innate preference' or 'innate 
-        dislike' of each kind of input 
+    
+    Modify the vehicle so that, for things that it likes, it has a 'u-shaped' 
+    preference curve, moving little when it is far away from something, 
+    or when it is really close, but moving quickly when it is a moderate 
+    distance away. If you get this working correctly, you should get your 
+    Vehicles approaching and staying near the things they like
 '''
 
 
@@ -20,7 +20,7 @@ class HeatSource(turtle.Turtle):
         self.shape('circle')
         self.penup()
         self.color(255, 190, 60)
-        self.goto(random.randint(-200, -50), random.randint(-200, -50))
+        self.goto(random.randint(-200, 0), random.randint(-200, 0))
         self.showturtle()
         self.type = 'heat'
 
@@ -32,34 +32,36 @@ class ColdSource(turtle.Turtle):
         turtle.Turtle.__init__(self, visible=False)
         self.shape('circle')
         self.penup()
-        self.color(60, 0, 190)
-        self.goto(random.randint(50, 200), random.randint(50, 200))
+        self.color(60, 255, 190)
+        self.goto(random.randint(0, 200), random.randint(0, 200))
         self.showturtle()
         self.type = 'cold'
 
 
-class Vehicle3(turtle.Turtle):
+class Vehicle4(turtle.Turtle):
 
-    def __init__(self, input_list, vehicle_id, vehicle_type, prefer):
+    def __init__(self, input_list, vehicle_id, vehicle_type):
         turtle.Turtle.__init__(self, visible=False)
         self.vehicle_id = vehicle_id
         self.vehicle_type = vehicle_type
         self.input_list = input_list
         self.create_vehicle()
-        self.speed_parameters = [3, 0.2, 1]
-        self.turn_parameters = [40]
+        self.speed_parameters = [20, 0.2, 6]
+        self.turn_parameters = [20]
         self.moves = 0
-        self.prefer = prefer
-        print(prefer)
+        self.distance_weights = {'heat': [0, 1], 'cold': [1, 0]}
+        self.max_speed_distance = 250
+        self.speed_range = 80
+        self.gaussian_scale = 200
 
     def create_vehicle(self):
         self.shape('turtle')
         self.turtlesize(1)
         self.penup()
         if self.vehicle_type == 'crossed':
-            self.color(0, 0, 255)
+            self.color(random.randint(0, 150), random.randint(0, 150), 255)
         else:
-            self.color(255, 0, 0)
+            self.color(255, random.randint(0, 150), random.randint(0, 150))
         self.goto(random.randint(-290, 290), random.randint(-290, 290))
         self.right(random.randint(0, 360))
         self.pendown()
@@ -74,42 +76,37 @@ class Vehicle3(turtle.Turtle):
         sin_angle = math.sin(math.radians(angle))
         left_distance = distance - sin_angle
         right_distance = distance + sin_angle
-        if left_distance == 0:
-            left_distance = 0.00001
-        if right_distance == 0:
-            right_distance = 0.00001
         return left_distance, right_distance
 
-    def _compute_speed_preference(self, distance, source_type):
-        # Preferred type speed will follow a sigmoid like function
-        if source_type == self.prefer:
-            return 2 / (1 + math.exp(-0.05 * distance)) - 1
-        else:
-            return 3 / (math.pow(distance + 10, 0.2)) - 1
-
     def compute_speed(self, left_distance, right_distance, source_type):
+        left_weight, right_weight = self.distance_weights[source_type]
         if self.vehicle_type == 'crossed':
-            right_speed = self._compute_speed_preference(left_distance,
-                                                         source_type)
-            left_speed = self._compute_speed_preference(right_distance,
-                                                        source_type)
+            left_speed = self.gaussian(right_distance * left_weight
+                                       + left_distance * right_weight)
+            right_speed = self.gaussian(right_distance * right_weight
+                                        + left_distance * left_weight)
         else:
-            right_speed = self._compute_speed_preference(right_distance,
-                                                         source_type)
-            left_speed = self._compute_speed_preference(left_distance,
-                                                        source_type)
-
-        # Make the speed to be inhibited.
-        if source_type != self.prefer:
-            right_speed = 2 - right_speed
-            left_speed = 2 - left_speed
-
-        combined_speed = (left_speed + right_speed) / 5
+            right_speed = self.gaussian(right_distance * left_weight
+                                        + left_distance * right_weight)
+            left_speed = self.gaussian(right_distance * right_weight
+                                       + left_distance * left_weight)
+        combined_speed = (left_speed + right_speed) / 2
         return left_speed, right_speed, combined_speed
 
     def compute_turn_amount(self, left_speed, right_speed):
         turn_amount = self.turn_parameters[0] * (right_speed - left_speed)
         return turn_amount
+
+    def gaussian(self, distance):
+        """
+        The speed is modulated by a gaussian function on the distance.
+        :param distance:
+        :return:
+        """
+        return self.gaussian_scale / (
+                self.speed_range * math.sqrt(2 * math.pi)) * math.exp(
+            -1 / 2 * math.pow(
+                (distance - self.max_speed_distance) / self.speed_range, 2))
 
     def move(self):
         combined_speed = 0
@@ -124,11 +121,12 @@ class Vehicle3(turtle.Turtle):
                 left_distance, right_distance, current_input.type)
             turn_amount = self.compute_turn_amount(left_speed, right_speed)
             combined_turn_amount += turn_amount
+            print(self.gaussian(input_distance), input_distance)
             combined_speed += average_speed
 
         try:
             self.right(combined_turn_amount)
-        except:
+        except Exception:
             print(combined_turn_amount)
         self.forward(combined_speed)
         self.moves += 1
@@ -145,10 +143,9 @@ def create_screen():
 
 def main():
     wn = create_screen()
-
-    num_vehicles = 50
-    num_heat_sources = 3
-    num_cold_sources = 3
+    num_vehicles = 2
+    num_heat_sources = 1
+    num_cold_sources = 1
 
     vehicle_list = []
     input_list = []
@@ -161,8 +158,7 @@ def main():
 
     for i in range(num_vehicles):
         vehicle_list.append(
-            Vehicle3(input_list, i, random.choice(['crossed', 'direct']),
-                     random.choice(['heat', 'cold'])))
+            Vehicle4(input_list, i, random.choice(["crossed", "direct"])))
 
     wn.update()
     while True:
