@@ -33,7 +33,7 @@ class ColdSource(turtle.Turtle):
         self.type = 'cold'
 
 
-class Vehicle3(turtle.Turtle):
+class Vehicle4(turtle.Turtle):
 
     def __init__(self, input_list, vehicle_id, vehicle_type, prefer):
         turtle.Turtle.__init__(self, visible=False)
@@ -41,10 +41,15 @@ class Vehicle3(turtle.Turtle):
         self.vehicle_type = vehicle_type
         self.input_list = input_list
         self.create_vehicle()
-        self.turn_parameters = [40]
+        self.turn_parameters = [200]
         self.moves = 0
         self.prefer = prefer
-        print(prefer)
+        self.max_speed = 200
+        # Max speed when 200 away from a source ('mean' of the gaussian
+        # function)
+        self.max_speed_distance = 200
+        # The 'standard deviation' of the gaussian function
+        self.range_of_speed_adjustment = 80
 
     def create_vehicle(self):
         self.shape('turtle')
@@ -75,11 +80,14 @@ class Vehicle3(turtle.Turtle):
         return left_distance, right_distance
 
     def _compute_speed_preference(self, distance, source_type):
-        # Preferred type speed will follow a sigmoid like function
-        if source_type == self.prefer:
-            return 2 / (1 + math.exp(-0.05 * distance)) - 1
-        else:
-            return 3 / (math.pow(distance + 10, 0.2)) - 1
+        gaussian = (self.max_speed /
+                    (self.range_of_speed_adjustment
+                     * math.sqrt(2 * math.pi))
+                    * math.exp(-0.5 * ((distance - self.max_speed_distance)
+                                       / self.range_of_speed_adjustment) ** 2))
+        return gaussian
+
+    # The general shape of the function: distance -> speed is gaussian
 
     def compute_speed(self, left_distance, right_distance, source_type):
         if self.vehicle_type == 'crossed':
@@ -94,6 +102,7 @@ class Vehicle3(turtle.Turtle):
                                                         source_type)
 
         combined_speed = (left_speed + right_speed) / 2
+        print(left_speed, right_speed, left_distance, right_distance)
         return left_speed, right_speed, combined_speed
 
     def compute_turn_amount(self, left_speed, right_speed):
@@ -135,8 +144,8 @@ def main():
     wn.addshape('moon.gif')
 
     num_vehicles = 50
-    num_heat_sources = 3
-    num_cold_sources = 3
+    num_heat_sources = 0
+    num_cold_sources = 4
 
     vehicle_list = []
     input_list = []
@@ -149,8 +158,7 @@ def main():
 
     for i in range(num_vehicles):
         vehicle_list.append(
-            Vehicle3(input_list, i, random.choice(['crossed', 'direct']),
-                     random.choice(['heat', 'cold'])))
+            Vehicle4(input_list, i, 'crossed', 'cold'))
 
     wn.update()
     while True:

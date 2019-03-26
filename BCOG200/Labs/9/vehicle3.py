@@ -75,9 +75,10 @@ class Vehicle3(turtle.Turtle):
         return left_distance, right_distance
 
     def _compute_speed_preference(self, distance, source_type):
-        # Preferred type speed will follow a sigmoid like function
+        distance = min(500, distance)
         if source_type == self.prefer:
-            return 2 / (1 + math.exp(-0.05 * distance)) - 1
+            # Low speed when it's close, and high speed when farther away
+            return (distance / 200 - 1) ** 3 + 1
         else:
             return 3 / (math.pow(distance + 10, 0.2)) - 1
 
