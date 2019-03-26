@@ -44,7 +44,6 @@ class Vehicle3(turtle.Turtle):
         self.turn_parameters = [40]
         self.moves = 0
         self.prefer = prefer
-        print(prefer)
 
     def create_vehicle(self):
         self.shape('turtle')

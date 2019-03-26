@@ -102,7 +102,6 @@ class Vehicle4(turtle.Turtle):
                                                         source_type)
 
         combined_speed = (left_speed + right_speed) / 2
-        print(left_speed, right_speed, left_distance, right_distance)
         return left_speed, right_speed, combined_speed
 
     def compute_turn_amount(self, left_speed, right_speed):
