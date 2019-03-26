@@ -79,7 +79,15 @@ class Vehicle4(turtle.Turtle):
             right_distance = 0.00001
         return left_distance, right_distance
 
-    def _compute_speed_preference(self, distance, source_type):
+    def _compute_speed_preference(self, distance):
+        """
+        The speed to distance is a gaussian function. When the distance is
+        self.max_speed_distance, the speed will be largest. Then it will
+        decrease if the vehicle gets close or farther.
+
+        :param distance: How far the sensor is to the source
+        :return: The speed corresponds to this sensor
+        """
         gaussian = (self.max_speed /
                     (self.range_of_speed_adjustment
                      * math.sqrt(2 * math.pi))
@@ -87,19 +95,13 @@ class Vehicle4(turtle.Turtle):
                                        / self.range_of_speed_adjustment) ** 2))
         return gaussian
 
-    # The general shape of the function: distance -> speed is gaussian
-
     def compute_speed(self, left_distance, right_distance, source_type):
         if self.vehicle_type == 'crossed':
-            right_speed = self._compute_speed_preference(left_distance,
-                                                         source_type)
-            left_speed = self._compute_speed_preference(right_distance,
-                                                        source_type)
+            right_speed = self._compute_speed_preference(left_distance)
+            left_speed = self._compute_speed_preference(right_distance)
         else:
-            right_speed = self._compute_speed_preference(right_distance,
-                                                         source_type)
-            left_speed = self._compute_speed_preference(left_distance,
-                                                        source_type)
+            right_speed = self._compute_speed_preference(right_distance)
+            left_speed = self._compute_speed_preference(left_distance)
 
         combined_speed = (left_speed + right_speed) / 2
         return left_speed, right_speed, combined_speed

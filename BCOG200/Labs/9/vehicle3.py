@@ -74,6 +74,16 @@ class Vehicle3(turtle.Turtle):
         return left_distance, right_distance
 
     def _compute_speed_preference(self, distance, source_type):
+        """
+        If the type of source is preferable, the first derivative of speed
+        will be large when vehicle is close or far away (not in middle region)
+        If the type is not preferable, the speed will basically be inverse
+        proportional.
+
+        :param distance: How far the sensor to the heat source
+        :param source_type: The type of the heat source
+        :return: The speed
+        """
         distance = min(500, distance)
         if source_type == self.prefer:
             # Low speed when it's close, and high speed when farther away
