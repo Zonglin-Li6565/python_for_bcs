@@ -75,7 +75,9 @@ def q4():
             - Modify vehicle 3 so that it has an 'innate preference' or 
             'innate dislike' of each kind of input""")
 
-    your_answer = ''
+    your_answer = """
+    See Vehicle3.py
+    """
     print(your_answer)
 
 
@@ -92,7 +94,9 @@ def q5():
     like.
     """)
     #
-    your_answer = ""
+    your_answer = """
+    See Vehicle4.py
+    """
     print(your_answer)
 
 
