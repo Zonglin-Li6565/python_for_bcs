@@ -14,9 +14,11 @@ interesting_words = ['hello', 'world', 'and', 'these', 'are',
                      'the', 'ten', 'words', 'I', 'pick']
 
 title_max_length = 24
-number_length = 10
+number_length = 14
 
 title = ('{0: <%d}' % title_max_length).format('Title')
+title += ('{0: <%d}' % number_length).format('Total Unique')
+title += ('{0: <%d}' % number_length).format('Total Words')
 for word in interesting_words:
     title += ('{0: <%d}' % number_length).format(word)
 print(title)
@@ -35,6 +37,8 @@ for book in book_file_list:
         fdist = nltk.FreqDist(text)
         fdist_list.append(fdist)
         s = ('{0: <%d}' % title_max_length).format(title)
+        s += ('{0: <%d}' % number_length).format(len(set(tokens)))
+        s += ('{0: <%d}' % number_length).format(len(tokens))
         for word in interesting_words:
             s += ('{0: <%d}' % number_length).format(fdist[word])
         print(s)
