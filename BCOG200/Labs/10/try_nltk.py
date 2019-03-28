@@ -109,8 +109,8 @@ from urllib import request
 url = "http://www.gutenberg.org/files/84/84-0.txt"
 response = request.urlopen(url)
 frankenstein = response.read().decode('utf8')
-# print(len(frankenstein))
-# print(frankenstein[:500])
+print(len(frankenstein))
+print(frankenstein[:500])
 
 """
 Note, this isnt using NLTK, this is using the url module, a built in part of 
@@ -131,7 +131,7 @@ nltk "text".
 """
 frankenstein_tokens = tokens = nltk.word_tokenize(frankenstein)
 frankenstein_text = nltk.Text(frankenstein_tokens)
-# print(frankenstein_text[209:321])
+print(frankenstein_text[209:321])
 
 """
 Let's say you want to get all the word's that come before between the words 
@@ -150,15 +150,18 @@ the matched word (e.g. young) and not the matched phrase (e.g. a young man)
 is produced.
 """
 words = frankenstein_text.findall(r"<a> (<.*>) <man>")
-# print(words)
-# search for some other stuff
+print(words)
+words = frankenstein_text.findall(r'<hello> .* <world>')
+print(words)
 
 """
 We might want to see all the words around a given word:
 """
 concordances = frankenstein_text.concordance("monstrous")
-# print(concordances)
+print(concordances)
 # search for some words you think will be interesting
+concordances = frankenstein_text.concordance('doctor')
+print(concordances)
 
 """
 Ok now let's count words. Remember all that hard work of counting word 
@@ -167,9 +170,9 @@ line.
 """
 # comment what you think is happening below
 frakenstein_freqs = nltk.FreqDist(frankenstein_text)
-# print(frakenstein_freqs)
-# for word in frakenstein_freqs.most_common(50):
-#     print(word)
+print(frakenstein_freqs)
+for word in frakenstein_freqs.most_common(50):
+    print(word)
 
 """
 Remember sets? We can take advantage of them.
@@ -177,6 +180,9 @@ Remember sets? We can take advantage of them.
 frakenstein_vocab = set(frankenstein_text)
 long_words = [w for w in frakenstein_vocab if len(w) > 15]
 sorted_long_words = sorted(long_words)
-# print(sorted_long_words)
+print(sorted_long_words)
 # test your knowledge and print out only the items in this sequence that do
 # not have a /
+
+long_words_no_slash = [w for w in long_words if not w.startswith('/')]
+print(long_words_no_slash)
