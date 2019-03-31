@@ -51,4 +51,8 @@ USING NLTK:
     2. pick 10 words you are interested in and print out how many times each
         occurred in each book in a nice, organized formatted table
     3. wait for instructions for your final task
+    
+    Why should we use NLTK: It's a good library with a lot of prebuilt in 
+    features. Since we don't need to hand craft the functions every time, it
+    can save a lot of time.
 """
