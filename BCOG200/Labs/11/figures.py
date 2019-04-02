@@ -6,18 +6,19 @@ plot (while still giving us a lot more power
 to affect its style and appearance). A figure may also be a composed of
 multiple subplots within in the same figure.
 """
+import matplotlib.pyplot as plt
 import numpy as np
 
 days = np.arange(1, 6)
 some_array1 = np.array([-1, -4.5, 16, 23, 30])
 
 # here is the way we did it before, with a simple plot
-# plt.plot(some_array1)
-# plt.title('A simple matplotlib Figure')
-# plt.xlabel('days')
-# plt.ylabel('happiness')
+plt.plot(some_array1)
+plt.title('A simple matplotlib Figure')
+plt.xlabel('days')
+plt.ylabel('happiness')
 
-# plt.show()
+plt.show()
 # notice one thing about plt.show()
 # it sort of freezes your program; lines after it do not execute until you
 # close the window.
@@ -30,36 +31,38 @@ some_array1 = np.array([-1, -4.5, 16, 23, 30])
 # note that the resulting output does not look identical.
 # the second one creates a figure with grid lines, which can be turned off if
 # you dont want them
-# fig, ax = plt.subplots()
-# ax.plot(days, some_array1)
+fig, ax = plt.subplots()
+ax.plot(days, some_array1)
 #
-# ax.set(xlabel='days', ylabel='happiness',
-#        title='A simple matplotlib Figure')
-# ax.grid()
+ax.set(xlabel='days', ylabel='happiness',
+       title='A simple matplotlib Figure')
+ax.grid()
 #
 # notice what happens if we print() the figure and the axes returned by
 # plot.subplots()
-# print(fig)
-# print(ax)
+print(fig)
+print(ax)
 # we get some information about the figure and axes objects that have been
 # created.
 # later, if we want to create a more complex figure, like one with multiple
 # plots, we will edit these objects
 
-# plt.show()
+plt.show()
 
 """
 Let's return to our school gpa and IQ data, and make a figure with multiple 
 histograms
 """
-school_list = ['Illinois', 'Indiana', 'Northwestern']
+school_list = ['Illinois', 'Indiana', 'Northwestern', 'Purdue']
 score_type = ['IQ', 'GPA']
-iq_matrix = np.random.normal(100, 10, [1000, 3])
-gpa_matrix = np.random.normal(3, 0.25, [1000, 3])
+iq_matrix = np.random.normal(100, 10, [1000, 4])
+gpa_matrix = np.random.normal(3, 0.25, [1000, 4])
 iq_matrix[:, 0] += 10
 iq_matrix[:, 2] -= 10
+iq_matrix[:, 3] -= 30
 gpa_matrix[:, 0] += 0.25
 gpa_matrix[:, 2] -= 0.25
+gpa_matrix[:, 3] += 0.5
 gpa_matrix = np.clip(gpa_matrix, 0.0, 4.0)
 data_matrix = np.dstack((iq_matrix, gpa_matrix))
 means = data_matrix.mean(0)
@@ -71,54 +74,75 @@ stdevs = data_matrix.std(0)
 # the figure
 # so here, we are going to create a figure that has three rows, with two
 # plots in each row
-# fig1, ax = plt.subplots(3, 2)
-# print(fig1)
-# print(ax)
+fig1, ax = plt.subplots(4, 2)
+print(fig1)
+print(ax)
 # notice here how figure is always a single thing, but the axes object is now
 # a list
-# ax[0,0].hist(iq_matrix[:, 0], bins=10)
-# ax[0,1].hist(gpa_matrix[:, 0], bins=10)
-#
-# ax[1,0].hist(iq_matrix[:, 1], bins=10)
-# ax[1,1].hist(gpa_matrix[:, 1], bins=10)
-#
-# ax[2,0].hist(iq_matrix[:, 2], bins=10)
-# ax[2,1].hist(gpa_matrix[:, 2], bins=10)
-# plt.show()
+ax[0, 0].hist(iq_matrix[:, 0], bins=10)
+ax[0, 1].hist(gpa_matrix[:, 0], bins=10)
+
+ax[1, 0].hist(iq_matrix[:, 1], bins=10)
+ax[1, 1].hist(gpa_matrix[:, 1], bins=10)
+
+ax[2, 0].hist(iq_matrix[:, 2], bins=10)
+ax[2, 1].hist(gpa_matrix[:, 2], bins=10)
+
+ax[3, 0].hist(iq_matrix[:, 3], bins=10)
+ax[3, 1].hist(gpa_matrix[:, 3], bins=10)
+plt.show()
 
 # that's nice. But we can make it look a lot nicer, and we can improve the
 # code by using loops
 # thoroughly comment below, so we know you understand all that's going on here.
 
-# num_bins = 100
-# x_lims = ((50, 150), (1.0, 4.0))
-# colors1 = ("xkcd:navy", "xkcd:crimson", "xkcd:indigo")
-# colors2 = ("xkcd:coral", "xkcd:black", "xkcd:grey")
-#
-# fig, ax = plt.subplots(3, 2, figsize=(10, 5))
-# fig.suptitle("IQ and Grades at Three Schools", fontsize=20, x=0.57)
-# for i in range(len(school_list)):
-#     for j in range(len(score_type)):
-#         if i == 0:
-#             ax[i, j].set_title(score_type[j], fontsize=12)
-#         # plot the IQ histogram
-#         n, bins, patches = ax[i, j].hist(data_matrix[:, i, j],
-#                                          bins=num_bins, density=True,
-#                                          color=colors1[i])
-#         ax[i, j].set_xlim(x_lims[j])
-#
-#         # compute and plot a best fit line
-#         y = ((1 / (np.sqrt(2 * np.pi) * stdevs[i, j])) * np.exp(-0.5 * (1 /
-#         stdevs[i, j] * (bins - means[i, j])) ** 2))
-#         ax[i, j].plot(bins, y, '--', color=colors2[i])
-#
-# for ax, row in zip(ax[:,0], school_list):
-#     ax.annotate(row, xy=(0, 0.5), xytext=(-ax.yaxis.labelpad - 5, 0),
-#                 xycoords=ax.yaxis.label, textcoords='offset points',
-#                 ha='right', va='center')
-# fig.subplots_adjust(top=4.85)
-#
-# fig.subplots_adjust(hspace=0.6)
-# fig.tight_layout(rect=[0, 0.03, 1, 0.90])
-# plt.savefig('school_scores.jpg', dpi=100)
-# plt.show()
+# We have 100 bins for the graph
+num_bins = 100
+# The limit of the x axis for IQ and GPA
+x_lims = ((50, 150), (1.0, 4.0))
+# The color for the histogram for each school
+colors1 = ('xkcd:navy', 'xkcd:crimson', 'xkcd:indigo', 'xkcd:indigo')
+# The color for the fitted line of each school
+colors2 = ('xkcd:coral', 'xkcd:black', 'xkcd:grey', 'xkcd:grey')
+
+# A new figure with 4 x 2 plots
+fig, ax = plt.subplots(len(school_list), len(score_type), figsize=(10, 5))
+# The title of the plot
+fig.suptitle('IQ and Grades at Three Schools', fontsize=20, x=0.57)
+# Iterate through the list of schools
+for i in range(len(school_list)):
+    # Iterate through score types (IQ, GPA)
+    for j in range(len(score_type)):
+        if i == 0:
+            # For the title of each column
+            ax[i, j].set_title(score_type[j], fontsize=12)
+        # plot the IQ histogram
+        n, bins, patches = ax[i, j].hist(data_matrix[:, i, j],
+                                         bins=num_bins, density=True,
+                                         color=colors1[i])
+        # Set the limit of x axis corresponds to the score
+        ax[i, j].set_xlim(x_lims[j])
+
+        # compute and plot a best fit line
+        y = ((1 / (np.sqrt(2 * np.pi) * stdevs[i, j])) * np.exp(
+            -0.5 * (1 / stdevs[i, j] * (bins - means[i, j])) ** 2))
+        # Plot the fitted line
+        ax[i, j].plot(bins, y, '--', color=colors2[i])
+
+# Set the school labels
+for ax, row in zip(ax[:, 0], school_list):
+    ax.annotate(row, xy=(0, 0.5), xytext=(-ax.yaxis.labelpad - 5, 0),
+                xycoords=ax.yaxis.label, textcoords='offset points',
+                ha='right', va='center')
+
+# Adjust the top of the graph
+fig.subplots_adjust(top=4.85)
+
+# Adjust horizontal space
+fig.subplots_adjust(hspace=0.6)
+# Layout of the graph
+fig.tight_layout(rect=[0, 0.03, 1, 0.90])
+# Save the plot to a jpg
+plt.savefig('school_scores.jpg', dpi=100)
+# Show the plot
+plt.show()
