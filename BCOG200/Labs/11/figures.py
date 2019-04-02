@@ -1,11 +1,12 @@
 """
-In matplotlib, we make a distinction between plots and figures. So far we have been making plots. Plots are (typically)
-single graphs. A figure is a more complex enitity. A figure may be a single plot (while still giving us a lot more power
-to affect its style and appearance). A figure may also be a composed of multiple subplots within in the same figure.
+In matplotlib, we make a distinction between plots and figures. So far we
+have been making plots. Plots are (typically)
+single graphs. A figure is a more complex enitity. A figure may be a single
+plot (while still giving us a lot more power
+to affect its style and appearance). A figure may also be a composed of
+multiple subplots within in the same figure.
 """
 import numpy as np
-import matplotlib
-import matplotlib.pyplot as plt
 
 days = np.arange(1, 6)
 some_array1 = np.array([-1, -4.5, 16, 23, 30])
@@ -16,16 +17,19 @@ some_array1 = np.array([-1, -4.5, 16, 23, 30])
 # plt.xlabel('days')
 # plt.ylabel('happiness')
 
-#plt.show()
+# plt.show()
 # notice one thing about plt.show()
-# it sort of freezes your program; lines after it do not execute until you close the window.
-# comment out the plt.show() above to make lines after it run. If you only put one plt.show() at the end, all your
+# it sort of freezes your program; lines after it do not execute until you
+# close the window.
+# comment out the plt.show() above to make lines after it run. If you only
+# put one plt.show() at the end, all your
 # figures in this file will appear simultaneously
 
 
 # here is how we create a more complex 'figure'
 # note that the resulting output does not look identical.
-# the second one creates a figure with grid lines, which can be turned off if you dont want them
+# the second one creates a figure with grid lines, which can be turned off if
+# you dont want them
 # fig, ax = plt.subplots()
 # ax.plot(days, some_array1)
 #
@@ -33,16 +37,20 @@ some_array1 = np.array([-1, -4.5, 16, 23, 30])
 #        title='A simple matplotlib Figure')
 # ax.grid()
 #
-# notice what happens if we print() the figure and the axes returned by plot.subplots()
+# notice what happens if we print() the figure and the axes returned by
+# plot.subplots()
 # print(fig)
 # print(ax)
-# we get some information about the figure and axes objects that have been created.
-# later, if we want to create a more complex figure, like one with multiple plots, we will edit these objects
+# we get some information about the figure and axes objects that have been
+# created.
+# later, if we want to create a more complex figure, like one with multiple
+# plots, we will edit these objects
 
 # plt.show()
 
 """
-Let's return to our school gpa and IQ data, and make a figure with multiple histograms
+Let's return to our school gpa and IQ data, and make a figure with multiple 
+histograms
 """
 school_list = ['Illinois', 'Indiana', 'Northwestern']
 score_type = ['IQ', 'GPA']
@@ -59,12 +67,15 @@ stdevs = data_matrix.std(0)
 
 # to create a figure with multiple plots
 # plt.subplots() creates a figure object and a list of axes objects.
-# the numbers passed to it tell it how many rows and columns of plots are in the figure
-# so here, we are going to create a figure that has three rows, with two plots in each row
+# the numbers passed to it tell it how many rows and columns of plots are in
+# the figure
+# so here, we are going to create a figure that has three rows, with two
+# plots in each row
 # fig1, ax = plt.subplots(3, 2)
 # print(fig1)
 # print(ax)
-# notice here how figure is always a single thing, but the axes object is now a list
+# notice here how figure is always a single thing, but the axes object is now
+# a list
 # ax[0,0].hist(iq_matrix[:, 0], bins=10)
 # ax[0,1].hist(gpa_matrix[:, 0], bins=10)
 #
@@ -75,7 +86,8 @@ stdevs = data_matrix.std(0)
 # ax[2,1].hist(gpa_matrix[:, 2], bins=10)
 # plt.show()
 
-# that's nice. But we can make it look a lot nicer, and we can improve the code by using loops
+# that's nice. But we can make it look a lot nicer, and we can improve the
+# code by using loops
 # thoroughly comment below, so we know you understand all that's going on here.
 
 # num_bins = 100
@@ -91,11 +103,13 @@ stdevs = data_matrix.std(0)
 #             ax[i, j].set_title(score_type[j], fontsize=12)
 #         # plot the IQ histogram
 #         n, bins, patches = ax[i, j].hist(data_matrix[:, i, j],
-#                                          bins=num_bins, density=True, color=colors1[i])
+#                                          bins=num_bins, density=True,
+#                                          color=colors1[i])
 #         ax[i, j].set_xlim(x_lims[j])
 #
 #         # compute and plot a best fit line
-#         y = ((1 / (np.sqrt(2 * np.pi) * stdevs[i, j])) * np.exp(-0.5 * (1 / stdevs[i, j] * (bins - means[i, j])) ** 2))
+#         y = ((1 / (np.sqrt(2 * np.pi) * stdevs[i, j])) * np.exp(-0.5 * (1 /
+#         stdevs[i, j] * (bins - means[i, j])) ** 2))
 #         ax[i, j].plot(bins, y, '--', color=colors2[i])
 #
 # for ax, row in zip(ax[:,0], school_list):
@@ -108,9 +122,3 @@ stdevs = data_matrix.std(0)
 # fig.tight_layout(rect=[0, 0.03, 1, 0.90])
 # plt.savefig('school_scores.jpg', dpi=100)
 # plt.show()
-
-
-
-
-
-
