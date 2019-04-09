@@ -122,15 +122,12 @@ def get_novel(url):
 
 def main():
     novel_url_list = [
-        # Social Contract & Discourses, by Jean-Jacques Rousseau
-        ('https://www.gutenberg.org/files/46333/46333-0.txt',
-         'Social Contract & Discourses, by Jean-Jacques Rousseau'),
-        # The Republic of Plato
-        ('http://www.gutenberg.org/cache/epub/55201/pg55201.txt',
-         'The Republic of Plato'),
-        # The Clouds, by Aristophanes
-        ('http://www.gutenberg.org/cache/epub/2562/pg2562.txt',
-         'The Clouds, by Aristophanes'),
+        ('http://www.gutenberg.org/cache/epub/28885/pg28885.txt',
+         'Alice\'s Adventures in Wonderland, by Lewis Carroll'),
+        ('http://www.gutenberg.org/files/1400/1400-0.txt',
+         'Great Expectations, by Charles Dickens'),
+        ('http://www.gutenberg.org/files/25344/25344-0.txt',
+         'The Scarlet Letter, by Nathaniel Hawthorne'),
     ]
     novel_tokens_list = []
     novel_fdist_list = []
