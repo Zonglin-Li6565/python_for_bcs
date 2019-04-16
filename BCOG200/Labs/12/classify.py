@@ -21,7 +21,7 @@ WORD_LABELS = True
 FILE_NAME = 'data/data2.csv'
 
 # to use the data in the file, set RANDOM_DATA to False:
-RANDOM_DATA = (4, 5, 20)
+RANDOM_DATA = False
 # if you want to use random data, specify a tuple with 3 numbers:
 # 0 num_categories
 # 1 num_words per category
