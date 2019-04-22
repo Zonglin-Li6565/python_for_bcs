@@ -102,8 +102,8 @@ class LogisticRegression:
                         accuracy_mean = accuracy_sum / self.dataset.training_size
                         confidence_mean = confidence_sum / self.dataset.training_size
                         self.output_epoch(i, accuracy_mean, confidence_mean, sse)
-                    else:
-                        print("        Epoch: {}   SSE: {:0.3f}".format(i, sse))
+                    # else:
+                        # print("        Epoch: {}   SSE: {:0.3f}".format(i, sse))
 
                 self.delta_rule(x, y_pred, error)
 
@@ -141,6 +141,7 @@ class LogisticRegression:
                                                                                              str(accuracy),
                                                                                              confidence,
                                                                                              (error**2).sum()))
+        return accuracy
 
     ############################################################################################################
     def test(self):
@@ -187,6 +188,7 @@ class LogisticRegression:
             print("            Word           CorrectCat     GuessCat    Accuracy    Confidence   Error")
             for output_string in verbose_output_list:
                 print(output_string)
+        return self.test_accuracy
 
     ############################################################################################################
     @staticmethod
