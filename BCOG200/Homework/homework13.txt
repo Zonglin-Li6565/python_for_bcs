@@ -30,10 +30,18 @@ interaction (i.e. the effect
 of one variable depends on the level of the other variable). Describe this interaction and explain why you think it is
 occurring.
 
+    =================================================
+
+    The interaction is: Low TP will have high impact on no normalization case, but small impact on z-score normalized case.
+    The reason it's happening is that normalization will make the model less sensitive to outliers. If the model is trained
+    on raw data, without normalization, the weights correspond to features with large magnitude will get larger update and
+    will result in weights with large magnitude. Therefore, a small noise in those large features will cause a large change
+    in output value and shadow the contribution of features with small magnitude.
+
 3. Go back to the original, unmodified version of classify.py. Run it using the following parameters:
 
     RANDOM_SEED = None
-    TRAINING_PROPORTION = .05
+    TRAINING_PROPORTION = .95
     NORMALIZE_METHOD = None
     SVD_DIM = 0
     LEARNING_RATE = 0.1
@@ -54,3 +62,13 @@ occurring.
     it has feathers, and really predicted of the word not being a mammal. Using this logic, what has the model learned,
     and which words, if any, does it lead to it getting wrong. If you happen to get a perfect model, rerun it a few times
     to get one that misses a few.
+
+    =================================================
+
+    The model learns:
+    1. Reptile: Has scales, breathes air are strong positive hints. And has teats and warmblooded are strong negative hints.
+    2. Fish: Prop. time in water is a strong hint and breathes air is a strong negative hint.
+    3. Bird: Wing proportion is a relatively strong positive hint and has teeth is a relatively strong negative hint.
+    4. Mammal: Warmblooded, has teats are strong positive hints and lays eggs, has scales are strong negative hints.
+
+    The model made one mistake. It mislabelled lungfish as reptile, since it breathes air.

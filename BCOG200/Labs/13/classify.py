@@ -1,18 +1,17 @@
+from multiprocessing import Pool
+
+import matplotlib.pyplot as plt
+import numpy as np
 from src import data_loader as dl
 from src import logistic_regression as lr
-import numpy as np
-from src import k_nearest_neighbors as knn
-import matplotlib.pyplot as plt
 
 RANDOM_SEED = None
 
 # Dataset Parameters
-TRAINING_PROPORTION = .1
-NORMALIZE_METHOD = None   # options are 'scale', 'z-score'
 SVD_DIM = 0
 
 # KNN Parameters
-SIMILARITY_METRIC = 'cosine'   # options are 'cosine', 'distance'
+SIMILARITY_METRIC = 'cosine'  # options are 'cosine', 'distance'
 MIN_MAX_KNN = (1, 3)
 
 # Regression Parameters
@@ -31,68 +30,62 @@ OUTPUT_FILE_NAME = 'output.csv'
 
 # to use the data in the file, set RANDOM_DATA to False:
 RANDOM_DATA = False
-#RANDOM_DATA = (4, 5, 20)
+# RANDOM_DATA = (4, 5, 20)
 # if you want to use random data, specify a tuple with 3 numbers:
 # 0 num_categories
 # 1 num_words per category
 # 2 num randomly generated features
 
+normalization_options = [None, 'z-score']
+tp_options = [0.10, 0.20, 0.50, 0.95]
+
+
+def worker(params):
+    print('Running', params)
+    normalization_idx, tp_idx, id = params
+    my_data = dl.Dataset(INPUT_FILE_NAME, RANDOM_DATA, tp_options[tp_idx],
+                         normalization_options[normalization_idx], SVD_DIM,
+                         VERBOSE, RANDOM_SEED)
+    my_logreg = lr.LogisticRegression(my_data, LEARNING_RATE, NUM_EPOCHS,
+                                      VERBOSE, RANDOM_SEED, OUTPUT_FILE_NAME)
+    my_logreg.train()
+    performance = my_logreg.test()
+    return normalization_idx, tp_idx, id, performance
+
+
 def main():
     # load the data.
-    test_accuracies = []
-    test_accuracy = []
-    train_accuracy = []
-    test_sdv = []
-    train_sdv = []
-    for split in [0.1, 0.3, 0.5, 0.7]:
-        total_test_acc = []
-        total_train_acc = []
-        for _ in range(10):
-            my_data = dl.Dataset(INPUT_FILE_NAME, RANDOM_DATA, split, NORMALIZE_METHOD, SVD_DIM, VERBOSE, RANDOM_SEED)
+    run_options = []
+    for i in range(len(normalization_options)):
+        for j in range(len(tp_options)):
+            for k in range(30):
+                run_options.append((i, j, k))
 
-            # compute correlations between features and categories
-            #my_data.compute_feature_correlations()
+    results = np.zeros((2, 4, 30))
 
-            # plot word scatterplot. by default, performs SVD and plots first 2 SVs. If you want to plot
-            # if instead you want to plot specific features, use their numbers as arguments after WORD_LABELS
-            #my_data.plot_feature_scatter(WORD_LABELS)  # include 2 features after WORD
+    with Pool(8) as pool:
+        for i, j, k, performance in pool.map(worker, run_options):
+            results[i, j, k] = performance
 
-            # plot scatterplot of words and their category assignments.
-            # The first number is the feature number, the second number is the category number
-            #my_data.plot_feature_category_scatter(WORD_LABELS, 1, 0)
+    means = results.mean(2)
+    stds = results.std(2)
 
-            # hierarchical clustering of words in terms of their features
-            #my_data.plot_hierarchical_cluster(similarity=True)
+    fig, ax = plt.subplots()
+    x_range = np.arange(4)
+    width = 0.35
+    p0 = ax.bar(x_range, means[0], width, color='b', bottom=0, yerr=stds[0])
+    p1 = ax.bar(x_range + width, means[1], width, color='r', bottom=0,
+                yerr=stds[1])
+    ax.set_title('Performance of logistic regression vs normalization and tp')
+    ax.set_xticks(x_range + width / 2)
+    ax.set_xticklabels(tp_options)
 
-            # k-nearest neighbor model
-            # my_knn = knn.Knn(my_data, MIN_MAX_KNN, SIMILARITY_METRIC, VERBOSE, RANDOM_SEED, OUTPUT_FILE_NAME)
-            # my_knn.train()
-            # my_knn.test(my_data.test_list, my_data.training_list, my_knn.best_k)
+    ax.legend((p0[0], p1[0]), ('None', 'z-score'))
+    ax.set_xlabel('TP')
+    ax.set_ylabel('Performance')
+    ax.autoscale_view()
 
-            # logistic regression model
-            my_logreg = lr.LogisticRegression(my_data, LEARNING_RATE, NUM_EPOCHS, VERBOSE, RANDOM_SEED, OUTPUT_FILE_NAME)
-            total_train_acc.append(my_logreg.train())
-            total_test_acc.append(my_logreg.test())
-        train_accuracy.append(sum(total_train_acc) / 10)
-        test_accuracy.append(sum(total_test_acc) / 10)
-        train_sdv.append(np.std(total_train_acc))
-        test_sdv.append(np.std(total_test_acc))
-        test_accuracies.append(total_test_acc)
-
-    # a plot of the model's prediction scores versus reality
-    # my_logreg.plot_ypredict_yactual_scatter(WORD_LABELS, 0)
-
-    # a heatmap of the weights learned by the model
-    # my_logreg.plot_weight_heat_map()
-
-    # plt.show()
-
-    print(test_accuracy)
-    print(train_accuracy)
-    print(train_sdv)
-    print(test_sdv)
-    print(test_accuracies)
+    plt.show()
 
 
 main()
-
