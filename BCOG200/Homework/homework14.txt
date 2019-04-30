@@ -1,15 +1,31 @@
 1) what is the similarities and differences between k-nearest neighbors, logistic regression, and neural networks?
 
+   Similarities: They are all algorithms for classification tasks. They all need to have labeled dataset at training time
+   Differences: Output from KNN is discrete, while logistic regression and NN are continuous. KNN is also not capable of producing results that can be viewed as a probability.
+   Neural network, with more than two layers can approximate any functions (they are universal approximators), but logistic regression can't.
+
 2) what is the "XOR problem" for classification models, and give an example from real life that is not one of the
-    examples I gave in class.
+   examples I gave in class.
+
+   The problem formulation is: given two inputs, x and y, each can take value of {0, 1}. We need the output to be 1 iff x and y have different values and 0 otherwise.
+   Real world example: suppose you have two important offers (school, work etc.), you can choose either one, but not both or neither.
 
 3) how does the XOR problem relate to our animals dataset? Can you find an example of the XOR problem using our features?
 
+   Some feature pairs in the animal dataset could show XOR relationship. In other words, most of the animal will show exactly one of the features.
+   For most of the animals, has feather and has teeth has XOR relationship. This means most of the animals has either teeth or feather, but not both or neither.
+
 4) how do neural networks solve the XOR problem, allowing us to learn complicated interactions?
+
+   It's basically a composition of basic logic operations: and, or, not. In the first layer, it computes those basic operations. Then in the second layer it combines those results
+   with more logical operations to get XOR.
 
 5) if you run the neural network model in run.py using the same settings (learning rate, weight init, num_epochs), the
 performance is different each time. Why is this? What are the two different things that change each time you run the
 model.
+
+   The variation is caused by randomness in the code. The first thing that has been randomized is the dataset split. Each time a different set of data points
+   will be in the train set, even though the size of the train set doesn't change. The second thing that changes is the initial state of the neural net.
 
 6) run the program run.py on the animals dataset with hidden_size = 1 for 2000 epochs.
     By manipulating the other parameters (learning rate, weight_stdev, training_proportion), what is the best you can
@@ -17,12 +33,25 @@ model.
     What does it mean to have hidden size = 1? Why is this network not all that good at the animal task, no matter
     what the other settings are?
 
+    The best accuracy I got was 0.867
+
+    Having hidden size 1 essentially reduces the network to a model similar to logistic regression.
+    All the features are linearly combined first and applied some nonlinearity after to become the value of the the hidden unit.
+    After this, there's no more information integration. As a result, it doesn't have the ability to perform multiple different
+    operations and combine them later, like what it did in XOR problem. So the model will not be able to learn some complex
+    interactions.
+
 7) leave training proportion set to 0.75. how many hidden units do you need to add to get the neural network to perform
 perfectly on the test items? what other settings (learning rate, weight_stdev) did you use?
 how consistent was it achieving 100% test accuracy?
+
+I used 10 hidden units, with learning rate 0.005 and weight_stdev 0.5. It's not very stable to get 100% accuracy.
+Most of the time it'll get > 99% accuracy
 
 8) make a matplotlib figure that has two subplots comparing the performance of two different models, run using different
 settings, and averaging over 20 runs of each model. you should base your code on the code in the plot_performance()
 function, with each subplot showing test performance for the different parameter settings. make sure the plot is fully
 labeled. extra credit if your lines have shaded regions demonstrating the error bars, as shown here:
 https://stackoverflow.com/questions/12957582/plot-yerr-xerr-as-shaded-region-rather-than-error-bars
+
+Please run multiple_times.py in lab dir (takes a while). And see multiple_times.png for the output.

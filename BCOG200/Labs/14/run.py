@@ -99,21 +99,21 @@ def main():
     random.seed(None)
     np.random.seed(None)
 
-    hidden_size = 2  # the number of hidden units in the layer between the inputs and the outputs
+    hidden_size = 1  # the number of hidden units in the layer between the inputs and the outputs
     learning_rate = 0.01  # what fraction of the correct amount the weights are changed on each trial
     weight_stdev = 0.1  # weights are initialized randomly to a value with a mean of 0, and a stdev of this
     num_epochs = 10000  # how many epochs (passes through the full dataset) the network takes
     training_proportion = 0.75
 
-    logic_dataset = datasets.LogicDataset()
-    logic_model = run_model(logic_dataset, hidden_size, learning_rate, weight_stdev, num_epochs)
-    #plot_performance(logic_model)
-    # plot_weights(logic_model)
+    # logic_dataset = datasets.LogicDataset()
+    # logic_model = run_model(logic_dataset, hidden_size, learning_rate, weight_stdev, num_epochs)
+    # #plot_performance(logic_model)
+    # # plot_weights(logic_model)
 
-    #animal_dataset = datasets.AnimalDataset('data/animals_4_128_15.csv', training_proportion)
-    #animal_model = run_model(animal_dataset, hidden_size, learning_rate, weight_stdev, num_epochs)
-    #plot_performance(animal_model)
-    #plot_weights(animal_model)
+    animal_dataset = datasets.AnimalDataset('data/animals_4_128_15.csv', training_proportion)
+    animal_model = run_model(animal_dataset, hidden_size, learning_rate, weight_stdev, num_epochs)
+    plot_performance(animal_model)
+    plot_weights(animal_model)
 
     plt.show()
 
